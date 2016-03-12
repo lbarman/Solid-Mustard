@@ -1,8 +1,9 @@
 import Component from 'core/Component.js';
 import RPC from 'core/RPC.js';
-import { Tower } from 'prefabs.js';
+import { Tower, Cursor } from 'prefabs.js';
 import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
+import TowerSprite from 'components/TowerSprite.js';
 
 export default class Grid extends Component {
 
@@ -13,6 +14,10 @@ export default class Grid extends Component {
     this.start = {x:0, y:4};
     this.end = {x:this.H_CELLS-1, y:12};
 
+    this.cursor = this.scene.newPrefab(Cursor);
+    this.cursor.disableNetworking();
+    this.cursor.getComponent(TowerSprite).color = '200, 80, 80';
+
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
       this.grid[x] = [];
@@ -21,9 +26,13 @@ export default class Grid extends Component {
       }
     }
 
-    this.activeCell = null;
     var pathFinder = new PathFinder(this.grid, this.start, this.end);
     this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    this.cursor.destroy();
   }
 
   onClick(evt) {
@@ -33,7 +42,9 @@ export default class Grid extends Component {
   }
 
   onMouseMove(evt) {
-    this.activeCell = this.snapToGrid(evt.x, evt.y);
+    const coords = this.snapToGrid(evt.x, evt.y);
+    this.cursor.transform.x = coords.x;
+    this.cursor.transform.y = coords.y;
   }
 
   snapToGrid(x, y) {
@@ -65,11 +76,6 @@ export default class Grid extends Component {
     for (let i = 0 ; i < this.V_CELLS + 1; i++) {
       ctx.moveTo(0,i);
       ctx.lineTo(this.H_CELLS, i);
-    }
-
-    if (this.activeCell !== null) {
-      ctx.fillStyle = 'rgba(100, 100, 100, 0.3)';
-      ctx.fillRect(this.activeCell.x, this.activeCell.y, 1, 1);
     }
 
     ctx.stroke();
