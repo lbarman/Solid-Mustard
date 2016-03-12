@@ -12,8 +12,6 @@ export default class Grid extends Component {
     super.onCreate();
     this.V_CELLS = 18;
     this.H_CELLS = 32;
-    this.start = {x:0, y:4};
-    this.end = {x:this.H_CELLS-1, y:12};
 
     this.cursor = this.scene.newPrefab(Tower);
     this.cursor.disableNetworking();
@@ -21,6 +19,7 @@ export default class Grid extends Component {
     sprite.color = '25, 225, 25';
     sprite.displayRadius = true;
     this.cursor.getComponent(TowerComp).disable();
+
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -30,6 +29,10 @@ export default class Grid extends Component {
       }
     }
 
+    this.activeCell = null;
+  }
+
+  updatePaths(){
     var pathFinder = new PathFinder(this.grid, this.start, this.end);
     this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
   }

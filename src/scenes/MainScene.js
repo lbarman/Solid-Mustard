@@ -4,6 +4,7 @@ import PhysicSystem from 'core/systems/PhysicSystem.js';
 import IASystem from 'systems/IASystem.js';
 
 import { WorldBoundaries, Camera, Grid, Creep} from 'prefabs.js';
+import GridComp from 'components/Grid.js';
 
 export default class MainScene extends Scene {
 
@@ -24,9 +25,14 @@ export default class MainScene extends Scene {
 
     this.newPrefab(WorldBoundaries);
     this.newPrefab(Camera);
-    this.newPrefab(Grid);
-    this.newPrefab(Creep)
+    var grid = this.newPrefab(Grid).getComponent(GridComp);
+    grid.start = {x:0, y:4};
+    grid.end = {x:grid.H_CELLS-1, y:12};
+    grid.updatePaths();
 
+    var creepEnt = this.newPrefab(Creep);
+    creepEnt.transform.x = grid.start.x + 0.5;
+    creepEnt.transform.y = grid.start.y + 0.5;
   }
 
 }
