@@ -12,7 +12,7 @@ import BulletComp from 'components/Bullet.js';
 import PawnComp from 'components/Pawn.js';
 import TowerComp from 'components/Tower.js';
 import LaserBeamComp from 'components/LaserBeam.js';
-
+import CreepComp from 'components/Creep.js';
 
 export const Player = [
   { comp: PlayerComp },
@@ -37,6 +37,21 @@ export const Tower = [
   { comp: Transform },
   { comp: TowerComp },
   { comp: RawSprite }
+];
+
+export const Creep = [
+  { comp: Transform },
+  { comp: CreepComp },
+  {
+    comp: CircleShape,
+    attrs: {
+      radius: 0.4,
+      strokeStyle: 'yellow',
+      stroke: true,
+      fill: false,
+      lineWidth: 0.1
+    }
+  }
 ];
 
 export const WorldBoundaries = [

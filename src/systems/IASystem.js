@@ -1,4 +1,4 @@
-import System from '../System.js';
+import System from 'core/System.js';
 
 export default class IASystem extends System {
 
@@ -16,5 +16,9 @@ export default class IASystem extends System {
     if(pos > 0){
       this.creeps = this.creeps.splice(pos, 1);
     }
+  }
+
+  updateGrid(newGrid){
+    this.grid = newGrid;
   }
 }
