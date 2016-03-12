@@ -16,7 +16,7 @@ export default class extends Server {
   onClientConnect(client) {
     var player = this.scene.newPrefab(Player);
     client.addToScene(this.scene);
-    player.getComponent(PlayerComp).spawn();
+    player.getComponent(PlayerComp).grid = this.scene.makeGrid();
     client.send('playerId', player.id);
   }
 

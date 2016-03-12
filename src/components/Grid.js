@@ -78,6 +78,8 @@ export default class Grid extends Component {
   onDraw(ctx) {
     ctx.save();
 
+    ctx.translate(this.transform.x, this.transform.y);
+
     ctx.beginPath();
     ctx.lineWidth = 0.05;
     ctx.strokeStyle = '#333';

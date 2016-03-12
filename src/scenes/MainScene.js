@@ -3,7 +3,8 @@ import Scene from 'core/Scene.js';
 import PhysicSystem from 'core/systems/PhysicSystem.js';
 import IASystem from 'systems/IASystem.js';
 
-import { WorldBoundaries, Camera, Grid, Creep} from 'prefabs.js';
+import { WorldBoundaries, Camera, Creep, Grid } from 'prefabs.js';
+
 import GridComp from 'components/Grid.js';
 
 export default class MainScene extends Scene {
@@ -33,6 +34,26 @@ export default class MainScene extends Scene {
     var creepEnt = this.newPrefab(Creep);
     creepEnt.transform.x = grid.start.x + 0.5;
     creepEnt.transform.y = grid.start.y + 0.5;
+
+    this.newPrefab(Creep);
+
+    this._grids = [];
+  }
+
+  /**
+   * Allocates a new grid in the scene, appending it to the right of the last player.
+   * Returns the `Grid` component attached to the newly created grid.
+   */
+  makeGrid() {
+    const grid = this.newPrefab(Grid);
+    const gridComp = grid.getComponent(GridComp);
+
+    grid.transform.x = gridComp.H_CELLS * this._grids.length;
+
+    this._grids.push(grid);
+
+    return gridComp;
+>>>>>>> Stashed changes
   }
 
 }
