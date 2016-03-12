@@ -9,6 +9,8 @@ import CameraComp from 'core/components/Camera.js';
 import PlayerComp from 'components/Player.js';
 import BulletComp from 'components/Bullet.js';
 import PawnComp from 'components/Pawn.js';
+import TowerComp from 'components/Tower.js';
+import LaserBeamComp from 'components/LaserBeam.js';
 
 
 export const Player = [
@@ -22,6 +24,28 @@ export const Pawn = [
   { comp: RawSprite },
   { comp: Input },
   // { comp: CameraComp },
+  {
+    comp: Physics,
+    attrs: {
+      'radius': 6
+    }
+  }
+];
+
+export const Tower = [
+  { comp: Transform },
+  { comp: TowerComp },
+  {
+    comp: RectangleShape,
+    attrs: {
+      width: 1,
+      height: 1,
+      strokeStyle: '#f00',
+      stroke: true,
+      fill: false
+    }
+  },
+  { comp: Input },
   {
     comp: Physics,
     attrs: {
@@ -67,4 +91,10 @@ export const Bullet = [
   { comp: BulletComp },
   { comp: CircleShape },
   { comp: Physics}
+];
+
+export const LaserBeam = [
+  { comp: Transform },
+  { comp: LaserBeamComp },
+  { comp: RawSprite }
 ];
