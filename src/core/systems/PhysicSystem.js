@@ -18,7 +18,6 @@ export default class PhysicSystem extends System {
 
   addObject(obj) {
     this._obj.push(obj);
-    Log.info(`Physics: push object (length: ${this._obj.length})`);
   }
 
   removeObject(obj) {
@@ -28,7 +27,6 @@ export default class PhysicSystem extends System {
       return;
     }
     this._obj.splice(idx, 1);
-    Log.info(`Physics: pop object (length: ${this._obj.length})`);
   }
 
   get boundaries() {

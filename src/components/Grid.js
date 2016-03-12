@@ -1,15 +1,27 @@
 import Component from 'core/Component.js';
-import IASystem from 'systems/IASystem.js';
+import RPC from 'core/RPC.js';
+import { Tower } from 'prefabs.js';
 
 export default class Grid extends Component {
 
   onCreate() {
+    super.onCreate();
     this.V_CELLS = 18;
     this.H_CELLS = 32;
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
       this.grid[x] = [];
     }
+  }
+
+  onClick(evt) {
+    RPC.call(this, 'createTower', {x: evt.x, y: evt.y});
+  }
+
+  createTower(pos) {
+    const tower = this.scene.newPrefab(Tower);
+    tower.transform.x = pos.x;
+    tower.transform.y = pos.y;
   }
 
   onDraw(ctx) {

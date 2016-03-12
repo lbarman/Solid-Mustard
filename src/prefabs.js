@@ -13,6 +13,7 @@ import PawnComp from 'components/Pawn.js';
 import TowerComp from 'components/Tower.js';
 import LaserBeamComp from 'components/LaserBeam.js';
 import CreepComp from 'components/Creep.js';
+import MouseInput from 'components/MouseInput.js';
 
 export const Player = [
   { comp: PlayerComp },
@@ -102,5 +103,6 @@ export const LaserBeam = [
 
 export const Grid = [
   { comp: GridComp },
-  { comp: RawSprite }
+  { comp: RawSprite },
+  { comp: MouseInput }
 ];
