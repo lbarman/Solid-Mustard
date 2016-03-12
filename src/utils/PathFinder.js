@@ -43,10 +43,6 @@ export default class PathFinder {
   }
 
   doesAnyPathExists() {
-<<<<<<< Updated upstream
-    console.log(this.grid[this.start.x][this.start.y]);
-    return this.grid[this.start.x][this.start.y] !== undefined;
-=======
     return this.nextHop[this.start.x][this.start.y] !== undefined;
     // var current = this.start;
     // while(!(current.x === this.end.x && current.y === this.end.y)){
@@ -57,6 +53,5 @@ export default class PathFinder {
     //   current = next;
     // }
     // return true;
->>>>>>> Stashed changes
   }
 }
