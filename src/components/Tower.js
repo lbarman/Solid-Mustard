@@ -20,6 +20,8 @@ export default class Tower extends Component {
     this.createAttribute('towerRange', 5, Types.Float);
 
     this.createAttribute('displayRadius', true, Types.Boolean);
+
+    this.createAttribute('damage', 100, Types.Float);
   }
 
   onUpdate(dt) {
@@ -39,7 +41,7 @@ export default class Tower extends Component {
       if(this.targetCreep == null || this.targetCreep.transform.distanceTo(this.transform) > this.towerRange){
         this.currentCoolDown = this.LONGCOOLDOWN;
       }else {
-        this.fire(this.targetCreep.transform.x, this.targetCreep.transform.y);
+        this.fire(this.targetCreep);
       }
     }
   }
@@ -55,20 +57,14 @@ export default class Tower extends Component {
 
     //radius
     if(this.displayRadius) {
-           /*
-      var centerX = this.width 
-      var centerY = canvas.height / 2;
-      var radius = 70;
+           
+      var centerX = this.width/2;
+      var centerY = this.height/2;
 
-      context.beginPath();
-      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-      context.fillStyle = 'green';
-      context.fill();
-      context.lineWidth = 5;
-      context.strokeStyle = '#003300';
-      context.stroke();
-
-      */
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, this.towerRange, 0, 2 * Math.PI, false);
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.1)';
+      ctx.fill();
     }
 
 
@@ -115,12 +111,15 @@ export default class Tower extends Component {
 
   }
 
-  fire(x, y) {
+  fire(creep) {
+
+    creep.decreaseLife(this.damage);
+
     let beam = this.scene.newPrefab(LaserBeam, this.parent);
 
     beam.getComponent(LaserBeamComp).sourceX = this.transform.x + this.width/2;
     beam.getComponent(LaserBeamComp).sourceY = this.transform.y + this.height/2;
-    beam.getComponent(LaserBeamComp).targetX = x;
-    beam.getComponent(LaserBeamComp).targetY = y;
+    beam.getComponent(LaserBeamComp).targetX = creep.transform.x;
+    beam.getComponent(LaserBeamComp).targetY = creep.transform.y;
   }
 }
