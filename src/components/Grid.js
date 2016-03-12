@@ -1,9 +1,10 @@
 import Component from 'core/Component.js';
 import RPC from 'core/RPC.js';
-import { Tower, Cursor } from 'prefabs.js';
+import { Tower } from 'prefabs.js';
 import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 import TowerSprite from 'components/TowerSprite.js';
+import TowerComp from 'components/Tower.js';
 
 export default class Grid extends Component {
 
@@ -14,11 +15,12 @@ export default class Grid extends Component {
     this.start = {x:0, y:4};
     this.end = {x:this.H_CELLS-1, y:12};
 
-    this.cursor = this.scene.newPrefab(Cursor);
+    this.cursor = this.scene.newPrefab(Tower);
     this.cursor.disableNetworking();
     const sprite = this.cursor.getComponent(TowerSprite);
     sprite.color = '200, 80, 80';
     sprite.displayRadius = true;
+    this.cursor.getComponent(TowerComp).disable();
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){

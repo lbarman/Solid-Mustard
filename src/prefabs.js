@@ -56,11 +56,6 @@ export const Creep = [
   }
 ];
 
-export const Cursor = [
-  { comp: Transform },
-  { comp: TowerSprite }
-];
-
 export const WorldBoundaries = [
   { comp: Transform },
   {

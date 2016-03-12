@@ -1,4 +1,5 @@
 import RawSprite from 'core/components/RawSprite.js';
+import Tower from 'components/Tower.js';
 import Types from 'core/Types.js';
 
 
@@ -11,9 +12,11 @@ export default class TowerSprite extends RawSprite {
 
     this.createAttribute('color', '255, 0, 0', Types.String);
     this.createAttribute('displayRadius', false, Types.Boolean);
+    this._tower = this.getComponent(Tower);
   }
 
   onDraw(ctx) {
+    console.log(this.displayRadius);
     //start drawing
     ctx.save();
 
@@ -27,7 +30,7 @@ export default class TowerSprite extends RawSprite {
       var centerY = this.height/2;
 
       ctx.beginPath();
-      ctx.arc(centerX, centerY, this.towerRange, 0, 2 * Math.PI, false);
+      ctx.arc(centerX, centerY, this._tower.towerRange, 0, 2 * Math.PI, false);
       ctx.fillStyle = `rgba(${this.color}, 0.1)`;
       ctx.fill();
     }
