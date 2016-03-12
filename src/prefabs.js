@@ -10,11 +10,20 @@ import GridComp from 'components/Grid.js';
 import PlayerComp from 'components/Player.js';
 import BulletComp from 'components/Bullet.js';
 import PawnComp from 'components/Pawn.js';
-import TowerComp from 'components/Tower.js';
-import LaserBeamComp from 'components/LaserBeam.js';
 import CreepComp from 'components/Creep.js';
 import MouseInput from 'components/MouseInput.js';
+
+import TowerComp from 'components/Tower.js';
+import LaserTowerComp from 'components/LaserTower.js';
+import SniperTowerComp from 'components/SniperTower.js';
+
 import TowerSprite from 'components/TowerSprite.js';
+import LaserTowerSprite from 'components/LaserTowerSprite.js';
+import SniperTowerSprite from 'components/SniperTowerSprite.js';
+
+import LaserBeamComp from 'components/LaserBeam.js';
+import MultiLaserBeamComp from 'components/MultiLaserBeam.js';
+import SniperBeamComp from 'components/SniperBeam.js';
 
 export const Player = [
   { comp: PlayerComp },
@@ -33,12 +42,6 @@ export const Pawn = [
       'radius': 6
     }
   }
-];
-
-export const Tower = [
-  { comp: Transform },
-  { comp: TowerComp },
-  { comp: TowerSprite }
 ];
 
 export const Creep = [
@@ -80,10 +83,39 @@ export const Bullet = [
   { comp: Physics }
 ];
 
+export const Tower = [
+  { comp: Transform },
+  { comp: TowerComp },
+  { comp: TowerSprite }
+];
+
+export const LaserTower = [
+  { comp: Transform },
+  { comp: LaserTowerComp },
+  { comp: LaserTowerSprite }
+];
+
+export const SniperTower = [
+  { comp: Transform },
+  { comp: SniperTowerComp },
+  { comp: SniperTowerSprite }
+];
 
 export const LaserBeam = [
   { comp: Transform },
   { comp: LaserBeamComp },
+  { comp: RawSprite }
+];
+
+export const MultiLaserBeam = [
+  { comp: Transform },
+  { comp: MultiLaserBeamComp },
+  { comp: RawSprite }
+];
+
+export const SniperBeam = [
+  { comp: Transform },
+  { comp: SniperBeamComp },
   { comp: RawSprite }
 ];
 

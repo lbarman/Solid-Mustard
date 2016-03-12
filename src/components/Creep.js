@@ -6,7 +6,7 @@ export default class Creep extends Component {
 
   onCreate() {
     this.SPEED = 1.0;
-    this.life = 10000;
+    this.life = 20000;
     this.iaSystem = this.scene.getSystem(IASystem);
     this.iaSystem.addCreep(this);
   }
