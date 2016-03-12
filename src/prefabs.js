@@ -59,21 +59,6 @@ export const Creep = [
   }
 ];
 
-export const WorldBoundaries = [
-  { comp: Transform },
-  {
-    comp: RectangleShape,
-    attrs: {
-      width: 32,
-      height: 18,
-      strokeStyle: '#0f0',
-      stroke: true,
-      fill: false,
-      lineWidth: 0.1
-    }
-  }
-];
-
 export const Camera = [
   {
     comp: Transform,
@@ -95,13 +80,7 @@ export const Bullet = [
   { comp: Transform },
   { comp: BulletComp },
   { comp: CircleShape },
-  { comp: Physics}
-];
-
-export const Grid = [
-  { comp: GridComp },
-  { comp: RawSprite },
-  { comp: MouseInput }
+  { comp: Physics }
 ];
 
 export const Tower = [
@@ -138,4 +117,22 @@ export const SniperBeam = [
   { comp: Transform },
   { comp: SniperBeamComp },
   { comp: RawSprite }
+];
+
+export const Grid = [
+  { comp: Transform },
+  { comp: GridComp },
+  { comp: RawSprite },
+  { comp: MouseInput },
+  {
+    comp: RectangleShape,
+    attrs: {
+      width: 32,
+      height: 18,
+      strokeStyle: '#0f0',
+      stroke: true,
+      fill: false,
+      lineWidth: 0.1
+    }
+  }
 ];

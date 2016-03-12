@@ -5,6 +5,7 @@ import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
+import Types from 'core/Types.js';
 
 export default class Grid extends Component {
 
@@ -20,6 +21,8 @@ export default class Grid extends Component {
     sprite.displayRadius = true;
     this.cursor.getComponent(TowerComp).disable();
 
+    this.createAttribute('start', {}, Types.Object);
+    this.createAttribute('end', {}, Types.Object);
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -44,8 +47,16 @@ export default class Grid extends Component {
 
   onClick(evt) {
     const pos = this.snapToGrid(evt.x, evt.y);
-    this.createTower(pos);
-    RPC.call(this, 'createTower', pos);
+    if(!this.grid[pos.x][pos.y]){
+      this.grid[pos.x][pos.y] = true;
+      var testPaths = new PathFinder(this.grid, this.start, this.end);
+      if(testPaths.doesAnyPathExists()){
+        this.createTower(pos);
+        RPC.call(this, 'createTower', pos);
+      } else {
+        this.grid[pos.x][pos.y] = false;
+      }
+    }
   }
 
   onMouseMove(evt) {
@@ -66,10 +77,14 @@ export default class Grid extends Component {
     const tower = this.scene.newPrefab(Tower);
     tower.transform.x = actualPos.x;
     tower.transform.y = actualPos.y;
+    this.grid[actualPos.x][actualPos.y] = true;
+    this.updatePaths();
   }
 
   onDraw(ctx) {
     ctx.save();
+
+    ctx.translate(this.transform.x, this.transform.y);
 
     ctx.beginPath();
     ctx.lineWidth = 0.05;

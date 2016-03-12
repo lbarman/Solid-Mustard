@@ -25,9 +25,11 @@ export default class PathFinder {
       for(var direction of directions){
         let newPosition = {x:current.x+direction.dx, y:current.y+direction.dy};
         if(isValid(newPosition)){
-          if(!alreadyVisited[newPosition.x][newPosition.y] && !grid[newPosition.x][newPosition.y]){
-            stack.push(newPosition);
+          if(!alreadyVisited[newPosition.x][newPosition.y]){
             nextHop[newPosition.x][newPosition.y] = current;
+            if(!grid[newPosition.x][newPosition.y]){
+              stack.push(newPosition);
+            }
           }
           alreadyVisited[newPosition.x][newPosition.y] = true;
         }
@@ -43,14 +45,15 @@ export default class PathFinder {
   }
 
   doesAnyPathExists() {
-    var current = this.start;
-    while(!(current.x === this.end.x && current.y === this.end.y)){
-      var next = this.nextFrom(current.x, current.y);
-      if(next === undefined){
-        return false;
-      }
-      current = next;
-    }
-    return true;
+    return this.nextHop[this.start.x][this.start.y] !== undefined;
+    // var current = this.start;
+    // while(!(current.x === this.end.x && current.y === this.end.y)){
+    //   var next = this.nextFrom(current.x, current.y);
+    //   if(next === undefined){
+    //     return false;
+    //   }
+    //   current = next;
+    // }
+    // return true;
   }
 }

@@ -5,17 +5,20 @@ export default class Creep extends Component {
 
   onCreate() {
     this.SPEED = 1.0;
-    this.life = 1000;
+    this.life = 10000;
     this.iaSystem = this.scene.getSystem(IASystem);
     this.iaSystem.addCreep(this);
   }
 
   onUpdate(dt) {
+    // Protect agains uninitialized PF
+    const pathFinder = this.iaSystem.pathFinder;
+    if (pathFinder == null) return;
+
     if(!this.nextGoal){
       var currentX = Math.round(this.transform.x - 0.5);
       var currentY = Math.round(this.transform.y - 0.5);
-      this.nextGoal = this.iaSystem.pathFinder.nextFrom(currentX, currentY);
-      console.log(this.nextGoal);
+      this.nextGoal = pathFinder.nextFrom(currentX, currentY);
     }
     var dx = this.nextGoal.x + 0.5 - this.transform.x;
     var dy = this.nextGoal.y + 0.5 - this.transform.y;
@@ -28,7 +31,7 @@ export default class Creep extends Component {
     this.transform.x += dx;
     this.transform.y += dy;
     if(distToGoal < move){
-      var end = this.iaSystem.pathFinder;
+      var end = pathFinder.end;
       if(this.nextGoal.x == end.x && this.nextGoal.y == end.y){
         this.destroy();
       }
