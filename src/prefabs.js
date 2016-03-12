@@ -35,8 +35,8 @@ export const WorldBoundaries = [
   {
     comp: RectangleShape,
     attrs: {
-      width: 800,
-      height: 600,
+      width: 32,
+      height: 18,
       strokeStyle: '#0f0',
       stroke: true,
       fill: false
@@ -45,15 +45,27 @@ export const WorldBoundaries = [
 ];
 
 export const Camera = [
-  {
+  { 
     comp: Transform,
     attrs: {
-      x: 400,
-      y: 300
+      x: 16,
+      y: 9
+    }
+  },
+  { 
+    comp: RectangleShape,
+    attrs: {
+      width: 1,
+      height: 1,
+      fillStyle: '#f00',
+      fill: true,
+      stroke: false
     }
   },
   { comp: CameraComp,
     attrs: {
+      width: 32,
+      height: 18,
       backgroundColor: '#000'
     }
   }
