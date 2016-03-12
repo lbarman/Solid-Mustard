@@ -13,12 +13,23 @@ export default class TowerSprite extends RawSprite {
   }
 
   onDraw(ctx) {
-
     //start drawing
     ctx.save();
 
     ctx.translate(this.transform.x, this.transform.y);
     ctx.rotate(this.transform.theta);
+
+    //radius
+    if(this.displayRadius) {
+
+      var centerX = this.width/2;
+      var centerY = this.height/2;
+
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, this.towerRange, 0, 2 * Math.PI, false);
+      ctx.fillStyle = `rgba(${this.color}, 0.1)`;
+      ctx.fill();
+    }
 
 
     ctx.beginPath();
