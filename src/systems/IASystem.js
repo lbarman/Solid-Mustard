@@ -18,7 +18,7 @@ export default class IASystem extends System {
     }
   }
 
-  updateGrid(newGrid){
-    this.grid = newGrid;
+  updatePathFinder(pathFinder){
+    this.pathFinder = pathFinder;
   }
 }
