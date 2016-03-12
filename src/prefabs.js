@@ -14,6 +14,7 @@ import TowerComp from 'components/Tower.js';
 import LaserBeamComp from 'components/LaserBeam.js';
 import CreepComp from 'components/Creep.js';
 import MouseInput from 'components/MouseInput.js';
+import TowerSprite from 'components/TowerSprite.js';
 
 export const Player = [
   { comp: PlayerComp },
@@ -37,7 +38,7 @@ export const Pawn = [
 export const Tower = [
   { comp: Transform },
   { comp: TowerComp },
-  { comp: RawSprite }
+  { comp: TowerSprite }
 ];
 
 export const Creep = [

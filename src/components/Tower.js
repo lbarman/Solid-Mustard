@@ -57,7 +57,7 @@ export default class Tower extends Component {
 
     //radius
     if(this.displayRadius) {
-           
+
       var centerX = this.width/2;
       var centerY = this.height/2;
 
@@ -71,7 +71,7 @@ export default class Tower extends Component {
     ctx.beginPath();
 
     //red body
-    ctx.fillStyle = 'rgba(255, 0, 0, 0.3)'; 
+    ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
     ctx.lineWidth = 1;
     ctx.moveTo(0, 0);
     ctx.lineTo(0 + this.width, 0);
@@ -81,7 +81,7 @@ export default class Tower extends Component {
     ctx.fill();
 
     //stronger border
-    ctx.strokeStyle = 'rgba(255, 0, 0, 1)'; 
+    ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
     ctx.lineWidth = 0.05;
     ctx.moveTo(0, 0);
     ctx.lineTo(0 + this.width, 0);
