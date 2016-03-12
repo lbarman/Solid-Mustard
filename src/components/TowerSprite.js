@@ -16,7 +16,6 @@ export default class TowerSprite extends RawSprite {
   }
 
   onDraw(ctx) {
-    console.log(this.displayRadius);
     //start drawing
     ctx.save();
 
