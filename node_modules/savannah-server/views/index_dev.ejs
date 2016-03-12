@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <script src="/lib/traceur.js"></script>
+  <script src="/lib/es6-module-loader-dev.js"></script>
+  <script src="/lib/engine.io.js"></script>
+  <script>
+    var SERVER_PORT = <%= port %>;
+    System.import('/Client.js').then(function(m) {
+      var client = new m.default();
+    });
+  </script>
+</body>
+</html>
