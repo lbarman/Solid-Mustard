@@ -12,7 +12,7 @@ export default class RectangleShape extends Shape {
 
   onCreate() {
     super.onCreate();
-    this.createAttribute('width', 20, Types.Float);
+    this.createAttribute('width', 10, Types.Float);
     this.createAttribute('height', 10, Types.Float);
   }
 

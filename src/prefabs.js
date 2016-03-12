@@ -36,23 +36,7 @@ export const Pawn = [
 export const Tower = [
   { comp: Transform },
   { comp: TowerComp },
-  {
-    comp: RectangleShape,
-    attrs: {
-      width: 1,
-      height: 1,
-      strokeStyle: '#f00',
-      stroke: true,
-      fill: false
-    }
-  },
-  { comp: Input },
-  {
-    comp: Physics,
-    attrs: {
-      'radius': 6
-    }
-  }
+  { comp: RawSprite }
 ];
 
 export const WorldBoundaries = [
