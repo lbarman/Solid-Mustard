@@ -25,9 +25,11 @@ export default class PathFinder {
       for(var direction of directions){
         let newPosition = {x:current.x+direction.dx, y:current.y+direction.dy};
         if(isValid(newPosition)){
-          if(!alreadyVisited[newPosition.x][newPosition.y] && !grid[newPosition.x][newPosition.y]){
-            stack.push(newPosition);
+          if(!alreadyVisited[newPosition.x][newPosition.y]){
             nextHop[newPosition.x][newPosition.y] = current;
+            if(!grid[newPosition.x][newPosition.y]){
+              stack.push(newPosition);
+            }
           }
           alreadyVisited[newPosition.x][newPosition.y] = true;
         }
