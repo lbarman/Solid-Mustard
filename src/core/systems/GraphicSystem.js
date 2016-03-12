@@ -10,7 +10,6 @@ export default class GraphicSystem extends System {
 
   addSprite(sprite) {
     this._sprites.push(sprite);
-    Log.info(`Graphics: push sprite (length: ${this._sprites.length})`);
   }
 
   removeSprite(sprite) {
@@ -20,7 +19,6 @@ export default class GraphicSystem extends System {
       return;
     }
     this._sprites.splice(idx, 1);
-    Log.info(`Graphics: pop sprite (length: ${this._sprites.length})`);
   }
 
   get sprites() {
