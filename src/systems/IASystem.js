@@ -5,6 +5,7 @@ export default class IASystem extends System {
   constructor() {
     super();
     this.creeps = [];
+    this._pathFinders = {};
   }
 
   addCreep(creep) {
@@ -18,16 +19,25 @@ export default class IASystem extends System {
     }
   }
 
-  updatePathFinder(pathFinder){
-    this.pathFinder = pathFinder;
+  setPathFinder(pathFinder, map_num){
+    this._pathFinders[map_num] = pathFinder;
   }
 
-  getClosestCreep(x, y) {
+  getPathFinder(map_num) {
+    return this._pathFinders[map_num];
+  }
 
-    if(this.creeps.length > 0)
-    {
-      return this.creeps[0];
+  getClosestCreep(transform) {
+
+    var closest = null;
+    var closestDist = Infinity;
+    for (let creep of this.creeps) {
+      const d = creep.transform.distanceTo(transform);
+      if (d < closestDist) {
+        closestDist = d;
+        closest = creep;
+      }
     }
-    return null;
+    return closest;
   }
 }

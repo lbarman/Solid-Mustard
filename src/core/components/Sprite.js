@@ -22,6 +22,20 @@ export default class Sprite extends Component {
     this._graphicSystem.removeSprite(this);
   }
 
+  enable() {
+    if (!this.enabled) {
+      this._graphicSystem.addSprite(this);
+    }
+    super.enable();
+  }
+
+  disable() {
+    if (this.enabled) {
+      this._graphicSystem.removeSprite(this);
+    }
+    super.disable();
+  }
+
   /**
    * Screen refresh handler.
    *

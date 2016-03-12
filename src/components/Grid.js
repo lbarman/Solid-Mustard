@@ -7,22 +7,24 @@ import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
 import Types from 'core/Types.js';
 
-export default class Grid extends Component {
+class Grid extends Component {
 
   onCreate() {
     super.onCreate();
-    this.V_CELLS = 18;
-    this.H_CELLS = 32;
+    this.V_CELLS = Grid.V_CELLS;
+    this.H_CELLS = Grid.H_CELLS;
 
     this.cursor = this.scene.newPrefab(Tower);
     this.cursor.disableNetworking();
-    const sprite = this.cursor.getComponent(TowerSprite);
-    sprite.color = '25, 225, 25';
-    sprite.displayRadius = true;
+    this.cursorSprite = this.cursor.getComponent(TowerSprite);
+    this.cursorSprite.color = '25, 225, 25';
+    this.cursorSprite.displayRadius = true;
     this.cursor.getComponent(TowerComp).disable();
 
     this.createAttribute('start', {}, Types.Object);
     this.createAttribute('end', {}, Types.Object);
+    this.createAttribute('grid_num', -1, Types.Int);
+    this.createAttribute('grid', null, Types.Array);
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -37,7 +39,7 @@ export default class Grid extends Component {
 
   updatePaths(){
     var pathFinder = new PathFinder(this.grid, this.start, this.end);
-    this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
+    this.scene.getSystem(IASystem).setPathFinder(pathFinder, this.grid_num);
   }
 
   onDestroy() {
@@ -46,23 +48,30 @@ export default class Grid extends Component {
   }
 
   onClick(evt) {
-    const pos = this.snapToGrid(evt.x, evt.y);
-    if(!this.grid[pos.x][pos.y]){
-      this.grid[pos.x][pos.y] = true;
-      var testPaths = new PathFinder(this.grid, this.start, this.end);
-      if(testPaths.doesAnyPathExists()){
-        this.createTower(pos);
-        RPC.call(this, 'createTower', pos);
-      } else {
-        this.grid[pos.x][pos.y] = false;
-      }
-    }
+    const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
+    this.createTower(pos);
+    RPC.call(this, 'createTower', pos);
   }
 
   onMouseMove(evt) {
-    const coords = this.snapToGrid(evt.x, evt.y);
-    this.cursor.transform.x = coords.x;
-    this.cursor.transform.y = coords.y;
+    const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
+
+    if( pos.x >= 0 && pos.x < Grid.H_CELLS &&
+        pos.y >= 0 && pos.y < Grid.V_CELLS) {
+
+      this.cursor.transform.x = pos.x + this.transform.x;
+      this.cursor.transform.y = pos.y;
+
+      if (this.grid[pos.x][pos.y]){
+        this.cursorSprite.color = '225, 0, 0';
+      } else {
+        this.cursorSprite.color = '0, 255, 0';
+      }
+
+      this.cursorSprite.enable();
+    } else {
+      this.cursorSprite.disable();
+    }
   }
 
   snapToGrid(x, y) {
@@ -73,12 +82,22 @@ export default class Grid extends Component {
   }
 
   createTower(pos) {
-    const actualPos = this.snapToGrid(pos.x, pos.y);
-    const tower = this.scene.newPrefab(Tower);
-    tower.transform.x = actualPos.x;
-    tower.transform.y = actualPos.y;
-    this.grid[actualPos.x][actualPos.y] = true;
-    this.updatePaths();
+
+    if( pos.x >= 0 && pos.x < Grid.H_CELLS &&
+        pos.y >= 0 && pos.y < Grid.V_CELLS &&
+        !this.grid[pos.x][pos.y]){
+
+      console.log('Creating tower at '+pos.x+ 'on grid '+this.grid_num);
+      const actualPos = this.snapToGrid(pos.x, pos.y);
+      var testPaths = new PathFinder(this.grid, this.start, this.end);
+      if(testPaths.doesAnyPathExists()){
+        const tower = this.scene.newPrefab(Tower);
+        tower.transform.x = actualPos.x + this.transform.x;
+        tower.transform.y = actualPos.y;
+        this.grid[actualPos.x][actualPos.y] = true;
+        this.updatePaths();
+      }
+    }
   }
 
   onDraw(ctx) {
@@ -104,3 +123,8 @@ export default class Grid extends Component {
     ctx.restore();
   }
 }
+
+Grid.V_CELLS = 18;
+Grid.H_CELLS = 32;
+
+export default Grid;

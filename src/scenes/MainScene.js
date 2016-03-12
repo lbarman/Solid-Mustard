@@ -35,15 +35,18 @@ export default class MainScene extends Scene {
 
     const grid = this.newPrefab(Grid);
     const gridComp = grid.getComponent(GridComp);
-    grid.transform.x = gridComp.H_CELLS * this._grids.length;
+    gridComp.grid_num = this._grids.length;
+    grid.transform.x = gridComp.H_CELLS * gridComp.grid_num;
 
     gridComp.start = {x:0, y:4};
     gridComp.end = {x:gridComp.H_CELLS-1, y:12};
     gridComp.updatePaths();
 
     var creepEnt = this.newPrefab(Creep);
-    creepEnt.transform.x = gridComp.start.x + 0.5;
-    creepEnt.transform.y = gridComp.start.y + 0.5;
+    creepEnt.transform.x = grid.transform.x + gridComp.start.x + 0.5;
+    creepEnt.transform.y = grid.transform.y + gridComp.start.y + 0.5;
+
+    this._grids.push(gridComp);
 
     return gridComp;
   }

@@ -27,6 +27,9 @@ export default class Player extends Component {
 
   setGrid(g) {
     this.grid = g;
+    if (game.playerId != this.entity.id) {
+      g.disable();
+    }
   }
 
   spawn() {

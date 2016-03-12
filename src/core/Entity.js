@@ -143,7 +143,7 @@ export default class Entity {
     }
     return null;
   }
-  
+
   hasComponent(Type) {
     return this.getComponent(Type) != null;
   }

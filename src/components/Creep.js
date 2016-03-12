@@ -1,5 +1,6 @@
 import Component from 'core/Component.js';
 import IASystem from 'systems/IASystem.js';
+import Grid from 'components/Grid.js';
 
 export default class Creep extends Component {
 
@@ -10,15 +11,27 @@ export default class Creep extends Component {
     this.iaSystem.addCreep(this);
   }
 
+  getGridNum() {
+    return Math.floor(this.transform.x / Grid.H_CELLS);
+  }
+
+  getGridCoords() {
+    return {
+      x: Math.round(this.transform.x - 0.5) % Grid.H_CELLS,
+      y: Math.round(this.transform.y - 0.5)
+    };
+  }
+
   onUpdate(dt) {
+    const gridNum = this.getGridNum();
+    const pathFinder = this.iaSystem.getPathFinder(gridNum);
     // Protect agains uninitialized PF
-    const pathFinder = this.iaSystem.pathFinder;
     if (pathFinder == null) return;
 
     if(!this.nextGoal){
-      var currentX = Math.round(this.transform.x - 0.5);
-      var currentY = Math.round(this.transform.y - 0.5);
-      this.nextGoal = pathFinder.nextFrom(currentX, currentY);
+      var current = this.getGridCoords();
+      this.nextGoal = pathFinder.nextFrom(current.x, current.y);
+      this.nextGoal.x += gridNum * Grid.H_CELLS;
     }
     var dx = this.nextGoal.x + 0.5 - this.transform.x;
     var dy = this.nextGoal.y + 0.5 - this.transform.y;

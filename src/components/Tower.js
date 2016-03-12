@@ -33,7 +33,7 @@ export default class Tower extends Component {
 
       //GET CREEP
       if(this.targetCreep == null){
-        this.targetCreep = this.scene.getSystem(IASystem).getClosestCreep(this.transform.x, this.transform.y);
+        this.targetCreep = this.scene.getSystem(IASystem).getClosestCreep(this.transform);
       }
 
       if(this.targetCreep == null || this.targetCreep.transform.distanceTo(this.transform) > this.towerRange){

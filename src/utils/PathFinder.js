@@ -41,6 +41,9 @@ export default class PathFinder {
   }
 
   nextFrom(x, y) {
+    if (x >= this.nextHop.length || y >= this.nextHop[x].length) {
+      throw new Error('Out of bounds access !');
+    }
     return this.nextHop[x][y];
   }
 

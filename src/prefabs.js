@@ -66,8 +66,8 @@ export const Camera = [
   },
   { comp: CameraComp,
     attrs: {
-      width: 33,
-      height: 19,
+      width: GridComp.H_CELLS + 1,
+      height: GridComp.V_CELLS + 1,
       backgroundColor: '#000'
     }
   }
@@ -95,8 +95,8 @@ export const Grid = [
   {
     comp: RectangleShape,
     attrs: {
-      width: 32,
-      height: 18,
+      width: GridComp.H_CELLS,
+      height: GridComp.V_CELLS,
       strokeStyle: '#0f0',
       stroke: true,
       fill: false,
