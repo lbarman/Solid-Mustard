@@ -1,7 +1,7 @@
 import Component from 'core/Component.js';
 import RPC from 'core/RPC.js';
 import { Tower } from 'prefabs.js';
-import IASystem from 'system/IASystem.js';
+import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 
 export default class Grid extends Component {
@@ -16,11 +16,14 @@ export default class Grid extends Component {
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
       this.grid[x] = [];
+      for(var y=0; y<this.V_CELLS; y++){
+        this.grid[x][y] = false;
+      }
     }
 
     this.activeCell = null;
-    var pathFinder = new PathFinder(this.grid, this.start, this.end);
-    this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
+    //var pathFinder = new PathFinder(this.grid, this.start, this.end);
+    //this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
   }
 
   onClick(evt) {

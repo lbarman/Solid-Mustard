@@ -1,5 +1,5 @@
 import Component from 'core/Component.js';
-import IASystem from 'system/IASystem.js';
+import IASystem from 'systems/IASystem.js';
 
 export default class Creep extends Component {
 
