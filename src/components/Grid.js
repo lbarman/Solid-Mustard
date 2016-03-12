@@ -11,7 +11,7 @@ export default class Grid extends Component {
     this.V_CELLS = 18;
     this.H_CELLS = 32;
     this.start = {x:0, y:4};
-    this.end = {x:this.H_CELLS, y:0};
+    this.end = {x:this.H_CELLS-1, y:12};
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -22,8 +22,8 @@ export default class Grid extends Component {
     }
 
     this.activeCell = null;
-    //var pathFinder = new PathFinder(this.grid, this.start, this.end);
-    //this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
+    var pathFinder = new PathFinder(this.grid, this.start, this.end);
+    this.scene.getSystem(IASystem).updatePathFinder(pathFinder);
   }
 
   onClick(evt) {
