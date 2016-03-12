@@ -5,6 +5,7 @@ export default class GraphicSystem extends System {
 
   constructor() {
     super();
+    this.lastActiveCamera = null;
     this._sprites = [];
   }
 
