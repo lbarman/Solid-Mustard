@@ -21,4 +21,13 @@ export default class IASystem extends System {
   updatePathFinder(pathFinder){
     this.pathFinder = pathFinder;
   }
+
+  getClosestCreep(x, y) {
+
+    if(this.creeps.length > 0)
+    {
+      return this.creeps[0];
+    }
+    return null;
+  }
 }

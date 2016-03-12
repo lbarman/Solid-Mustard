@@ -2,17 +2,22 @@ import Component from 'core/Component.js';
 import LaserBeamComp from 'components/LaserBeam.js';
 import RectangleShape from 'core/components/RectangleShape.js';
 import Types from '../core/Types.js';
+import IASystem from '../systems/IASystem.js';
 
 import { LaserBeam } from 'prefabs.js';
 
 export default class Tower extends Component {
 
   onCreate() {
+    this.LONGCOOLDOWN = 2000;
     this.COOLDOWN = 200;
 
     this.currentCoolDown = this.COOLDOWN;
     this.createAttribute('width', 1, Types.Float);
     this.createAttribute('height', 1, Types.Float);
+    this.createAttribute('targetCreep', null, Types.Component);
+    this.createAttribute('towerRange', 100000, Types.Float);
+
   }
 
   onUpdate(dt) {
@@ -25,11 +30,15 @@ export default class Tower extends Component {
       this.currentCoolDown = this.COOLDOWN;
 
       //GET CREEP
+      if(this.targetCreep == null){
+        this.targetCreep = this.scene.getSystem(IASystem).getClosestCreep(this.transform.x, this.transform.y);
+      }
 
-      let x = Math.random()*10;
-      let y = Math.random()*10;
-
-      this.fire(x, y);
+      if(this.targetCreep == null || this.targetCreep.transform.distanceTo(this.transform) > this.towerRange){
+        this.currentCoolDown = this.LONGCOOLDOWN;
+      }else {
+        this.fire(this.targetCreep.transform.x, this.targetCreep.transform.y);
+      }
     }
   }
 
