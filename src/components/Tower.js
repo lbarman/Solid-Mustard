@@ -3,6 +3,7 @@ import LaserBeamComp from 'components/LaserBeam.js';
 import RectangleShape from 'core/components/RectangleShape.js';
 import Types from '../core/Types.js';
 import IASystem from '../systems/IASystem.js';
+import Creep from 'components/Creep.js';
 
 import { LaserBeam } from 'prefabs.js';
 
@@ -15,9 +16,10 @@ export default class Tower extends Component {
     this.currentCoolDown = this.COOLDOWN;
     this.createAttribute('width', 1, Types.Float);
     this.createAttribute('height', 1, Types.Float);
-    this.createAttribute('targetCreep', null, Types.Component);
-    this.createAttribute('towerRange', 100000, Types.Float);
+    this.createAttribute('targetCreep', null, Types.Component(Creep));
+    this.createAttribute('towerRange', 5, Types.Float);
 
+    this.createAttribute('displayRadius', true, Types.Boolean);
   }
 
   onUpdate(dt) {
@@ -50,6 +52,24 @@ export default class Tower extends Component {
 
     ctx.translate(this.transform.x, this.transform.y);
     ctx.rotate(this.transform.theta);
+
+    //radius
+    if(this.displayRadius) {
+           /*
+      var centerX = this.width 
+      var centerY = canvas.height / 2;
+      var radius = 70;
+
+      context.beginPath();
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'green';
+      context.fill();
+      context.lineWidth = 5;
+      context.strokeStyle = '#003300';
+      context.stroke();
+
+      */
+    }
 
 
     ctx.beginPath();
