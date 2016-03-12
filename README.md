@@ -1,4 +1,4 @@
-color palette : [](http://www.color-hex.com/color-palette/861)
+color palette : [http://www.color-hex.com/color-palette/861]
 
 # TODO list
 
