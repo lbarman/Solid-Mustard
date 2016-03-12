@@ -6,6 +6,7 @@ import RectangleShape from 'core/components/RectangleShape.js';
 import CircleShape from 'core/components/CircleShape.js';
 import CameraComp from 'core/components/Camera.js';
 
+import GridComp from 'components/Grid.js';
 import PlayerComp from 'components/Player.js';
 import BulletComp from 'components/Bullet.js';
 import PawnComp from 'components/Pawn.js';
@@ -70,7 +71,7 @@ export const WorldBoundaries = [
 ];
 
 export const Camera = [
-  { 
+  {
     comp: Transform,
     attrs: {
       x: 16,
@@ -93,8 +94,14 @@ export const Bullet = [
   { comp: Physics}
 ];
 
+
 export const LaserBeam = [
   { comp: Transform },
   { comp: LaserBeamComp },
+  { comp: RawSprite }
+];
+
+export const Grid = [
+  { comp: GridComp },
   { comp: RawSprite }
 ];

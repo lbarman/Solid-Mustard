@@ -2,7 +2,7 @@ import Scene from 'core/Scene.js';
 
 import PhysicSystem from 'core/systems/PhysicSystem.js';
 
-import { WorldBoundaries, Camera } from 'prefabs.js';
+import { WorldBoundaries, Camera, Grid } from 'prefabs.js';
 
 export default class MainScene extends Scene {
 
@@ -20,6 +20,7 @@ export default class MainScene extends Scene {
 
     this.newPrefab(WorldBoundaries);
     this.newPrefab(Camera);
+    this.newPrefab(Grid);
 
   }
 
