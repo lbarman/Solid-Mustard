@@ -126,7 +126,9 @@ export default class GameModel {
 
     // Remove other entities
     for (const i of Object.keys(oldEntities)) {
-      oldEntities[i].onDestroy();
+      if (oldEntities[i].isSynchronized) {
+        oldEntities[i].onDestroy();
+      }
     }
   }
 
