@@ -19,8 +19,6 @@ export default class Tower extends Component {
     this.createAttribute('targetCreep', null, Types.Component(Creep));
     this.createAttribute('towerRange', 5, Types.Float);
 
-    this.createAttribute('displayRadius', true, Types.Boolean);
-
     this.createAttribute('damage', 100, Types.Float);
   }
 

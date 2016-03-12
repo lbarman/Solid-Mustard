@@ -16,7 +16,9 @@ export default class Grid extends Component {
 
     this.cursor = this.scene.newPrefab(Cursor);
     this.cursor.disableNetworking();
-    this.cursor.getComponent(TowerSprite).color = '200, 80, 80';
+    const sprite = this.cursor.getComponent(TowerSprite);
+    sprite.color = '200, 80, 80';
+    sprite.displayRadius = true;
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){

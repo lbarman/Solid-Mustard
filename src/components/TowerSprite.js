@@ -10,6 +10,7 @@ export default class TowerSprite extends RawSprite {
     this.height = 1;
 
     this.createAttribute('color', '255, 0, 0', Types.String);
+    this.createAttribute('displayRadius', false, Types.Boolean);
   }
 
   onDraw(ctx) {
