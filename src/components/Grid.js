@@ -89,7 +89,7 @@ export default class Grid extends Component {
     ctx.beginPath();
     ctx.lineWidth = 0.05;
     ctx.strokeStyle = '#333';
-    ctx.setLineDash([0.1]);
+    // ctx.setLineDash([0.1]); // Makes everything lagg like hell
 
     for (let i = 0 ; i < this.H_CELLS + 1 ; i++) {
         ctx.moveTo(i,0);

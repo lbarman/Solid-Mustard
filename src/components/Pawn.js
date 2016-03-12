@@ -22,7 +22,7 @@ export default class Pawn extends Component {
     this.lastFire = 0;
 
     this.createAttribute('lives', 3, Types.Int);
-    
+
     // TUTORIAL: uncomment this line...
     // this.getComponent(Camera).backgroundColor = '#000';
 
