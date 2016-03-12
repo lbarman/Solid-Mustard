@@ -44,8 +44,12 @@ export default class Grid extends Component {
 
   onClick(evt) {
     const pos = this.snapToGrid(evt.x, evt.y);
-    this.createTower(pos);
-    RPC.call(this, 'createTower', pos);
+    if(!this.grid[pos.x][pos.y]){
+      this.createTower(pos);
+      RPC.call(this, 'createTower', pos);
+      this.grid[pos.x][pos.y] = true;
+      this.updatePaths();
+    }
   }
 
   onMouseMove(evt) {
