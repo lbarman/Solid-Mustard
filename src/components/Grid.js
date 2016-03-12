@@ -12,16 +12,32 @@ export default class Grid extends Component {
     for(var x=0; x<this.H_CELLS; x++){
       this.grid[x] = [];
     }
+
+    this.activeCell = null;
   }
 
   onClick(evt) {
-    RPC.call(this, 'createTower', {x: evt.x, y: evt.y});
+    const pos = this.snapToGrid(evt.x, evt.y);
+    this.createTower(pos);
+    RPC.call(this, 'createTower', pos);
+  }
+
+  onMouseMove(evt) {
+    this.activeCell = this.snapToGrid(evt.x, evt.y);
+  }
+
+  snapToGrid(x, y) {
+    return {
+      x: Math.floor(x),
+      y: Math.floor(y)
+    };
   }
 
   createTower(pos) {
+    const actualPos = this.snapToGrid(pos.x, pos.y);
     const tower = this.scene.newPrefab(Tower);
-    tower.transform.x = pos.x;
-    tower.transform.y = pos.y;
+    tower.transform.x = actualPos.x;
+    tower.transform.y = actualPos.y;
   }
 
   onDraw(ctx) {
@@ -39,6 +55,11 @@ export default class Grid extends Component {
     for (let i = 0 ; i < this.V_CELLS + 1; i++) {
       ctx.moveTo(0,i);
       ctx.lineTo(this.H_CELLS, i);
+    }
+
+    if (this.activeCell !== null) {
+      ctx.fillStyle = 'rgba(100, 100, 100, 0.3)';
+      ctx.fillRect(this.activeCell.x, this.activeCell.y, 1, 1);
     }
 
     ctx.stroke();

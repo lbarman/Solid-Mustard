@@ -3,9 +3,8 @@ import 'scenes/index.js';
 import game from 'core/Game.js';
 import Server from 'core/Server.js';
 import PlayerComp from 'components/Player.js';
-import TowerComp  from 'components/Tower.js';
 
-import { Player, Tower } from 'prefabs.js';
+import { Player } from 'prefabs.js';
 
 export default class extends Server {
 
@@ -19,8 +18,6 @@ export default class extends Server {
     client.addToScene(this.scene);
     player.getComponent(PlayerComp).spawn();
     client.send('playerId', player.id);
-
-    var tower = this.scene.newPrefab(Tower);
   }
 
   onClientDisconnect() {  }
