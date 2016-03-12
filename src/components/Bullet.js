@@ -17,7 +17,6 @@ export default class Bullet extends Component {
     return 0.2;
   }
 
-
   onCollision(evt) {
     const other = evt.other;
     if (other == null) {
