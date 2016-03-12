@@ -20,7 +20,7 @@ export default class Input extends Component {
 
     this._keyDownListener = (evt) => this.handleKeyDown(evt);
     this._keyUpListener = (evt) => this.handleKeyUp(evt);
-      if (this.enabled === true) {
+    if (this.enabled === true) {
       this._bindHandlers();
     }
   }
@@ -99,7 +99,7 @@ export default class Input extends Component {
 
 
   _bindHandlers() {
-        Log.info(`bind ${this.id}`);
+    Log.info(`bind ${this.id}`);
     if (this._inputAvailable() === true) {
       window.addEventListener('keydown', this._keyDownListener);
       window.addEventListener('keyup', this._keyUpListener);

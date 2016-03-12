@@ -9,6 +9,7 @@ class Game {
     this._scenes = {};
     this._activeScenes = {};
     this._components = {};
+    this.isMaster = false;
     this._timer = new Timer((dt) => this.update(dt));
     this.playerId = null;
 

@@ -6,8 +6,8 @@ const EVENT_RX = /^on[A-Z].*/;
 export default class Component {
   constructor(entity, id) {
     this._entity = entity;
-    this._enabled = true;
     this._id = id;
+    this._enabled = true;
     this._eventHandlers = {};
     for (const f of Object.getOwnPropertyNames(Object.getPrototypeOf(this))) {
       if (EVENT_RX.test(f)) {
@@ -131,7 +131,7 @@ export default class Component {
   getComponent(Comp) {
     return this._entity.getComponent(Comp);
   }
-  
+
   hasComponent(Comp) {
     return this._entity.hasComponent(Comp);
   }

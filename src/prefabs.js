@@ -26,8 +26,16 @@ import MultiLaserBeamComp from 'components/MultiLaserBeam.js';
 import SniperBeamComp from 'components/SniperBeam.js';
 
 export const Player = [
+  { comp: Transform },
   { comp: PlayerComp },
-  { comp: Input }
+  { comp: Input },
+  { comp: CameraComp,
+    attrs: {
+      width: GridComp.H_CELLS + 1,
+      height: GridComp.V_CELLS + 1,
+      backgroundColor: '#000'
+    }
+  }
 ];
 
 export const Pawn = [
@@ -55,23 +63,6 @@ export const Creep = [
       stroke: true,
       fill: false,
       lineWidth: 0.1
-    }
-  }
-];
-
-export const Camera = [
-  {
-    comp: Transform,
-    attrs: {
-      x: 16,
-      y: 9
-    }
-  },
-  { comp: CameraComp,
-    attrs: {
-      width: GridComp.H_CELLS + 1,
-      height: GridComp.V_CELLS + 1,
-      backgroundColor: '#000'
     }
   }
 ];

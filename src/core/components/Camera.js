@@ -8,6 +8,7 @@ import GraphicSystem from '../systems/GraphicSystem.js';
 export default class Camera extends Component {
 
   onCreate() {
+    super.onCreate();
     this.createAttribute('backgroundColor', '#fff', Types.String);
     this.createAttribute('width', 1366, Types.Int);
     this.createAttribute('height', 768, Types.Int);

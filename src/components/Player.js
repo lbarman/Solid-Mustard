@@ -8,20 +8,18 @@ import RPC from 'core/RPC.js';
 
 import GridComp from 'components/Grid.js';
 
-import { Camera } from 'prefabs.js';
 
 export default class Player extends Component {
 
   onCreate() {
     this.createAttribute('grid', null, Types.Component(GridComp));
-    this.createAttribute('camera', null, Types.Component(CameraComp));
 
-    this.camera = this.scene.newPrefab(Camera).getComponent(CameraComp);
+    const camera = this.getComponent(CameraComp);
     this.CAMERA_SPEED = 0.01;
 
     if (game.playerId != this.entity.id) {
       this.getComponent(Input).disable();
-      this.camera.disable();
+      camera.disable();
     }
   }
 
@@ -40,13 +38,14 @@ export default class Player extends Component {
   }
 
   onUpdate(dt) {
+    super.onUpdate();
     const input = this.getComponent(Input);
 
     if (input.keys.right) {
-      this.camera.transform.x += dt * this.CAMERA_SPEED;
+      this.transform.x += dt * this.CAMERA_SPEED;
     }
     if (input.keys.left) {
-      this.camera.transform.x -= dt * this.CAMERA_SPEED;
+      this.transform.x -= dt * this.CAMERA_SPEED;
     }
   }
 
