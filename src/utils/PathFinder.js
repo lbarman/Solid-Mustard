@@ -43,14 +43,7 @@ export default class PathFinder {
   }
 
   doesAnyPathExists() {
-    var current = this.start;
-    while(!(current.x === this.end.x && current.y === this.end.y)){
-      var next = this.nextFrom(current.x, current.y);
-      if(next === undefined){
-        return false;
-      }
-      current = next;
-    }
-    return true;
+    console.log(this.grid[this.start.x][this.start.y]);
+    return this.grid[this.start.x][this.start.y] !== undefined;
   }
 }
