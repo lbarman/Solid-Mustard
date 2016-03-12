@@ -128,6 +128,8 @@ export default class GameModel {
     for (const i of Object.keys(oldEntities)) {
       if (oldEntities[i].isSynchronized) {
         oldEntities[i].onDestroy();
+      } else {
+        this._entities[i] = oldEntities[i];
       }
     }
   }
