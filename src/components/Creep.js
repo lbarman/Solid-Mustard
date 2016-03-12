@@ -1,5 +1,6 @@
 import Component from 'core/Component.js';
 import IASystem from 'systems/IASystem.js';
+import CircleShape from 'core/components/CircleShape.js';
 
 export default class Creep extends Component {
 
@@ -11,6 +12,7 @@ export default class Creep extends Component {
   }
 
   onUpdate(dt) {
+    //this.getComponent(CircleShape).
     if(!this.nextGoal){
       var currentX = Math.round(this.transform.x - 0.5);
       var currentY = Math.round(this.transform.y - 0.5);

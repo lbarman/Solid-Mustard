@@ -48,8 +48,14 @@ export default class Grid extends Component {
   onClick(evt) {
     const pos = this.snapToGrid(evt.x, evt.y);
     if(!this.grid[pos.x][pos.y]){
-      this.createTower(pos);
-      RPC.call(this, 'createTower', pos);
+      this.grid[pos.x][pos.y] = true;
+      var testPaths = new PathFinder(this.grid, this.start, this.end);
+      if(testPaths.doesAnyPathExists()){
+        this.createTower(pos);
+        RPC.call(this, 'createTower', pos);
+      } else {
+        this.grid[pos.x][pos.y] = false;
+      }
     }
   }
 
