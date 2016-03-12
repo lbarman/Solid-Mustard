@@ -39,7 +39,8 @@ export const WorldBoundaries = [
       height: 18,
       strokeStyle: '#0f0',
       stroke: true,
-      fill: false
+      fill: false,
+      lineWidth: 0.1
     }
   }
 ];
@@ -52,20 +53,10 @@ export const Camera = [
       y: 9
     }
   },
-  { 
-    comp: RectangleShape,
-    attrs: {
-      width: 1,
-      height: 1,
-      fillStyle: '#f00',
-      fill: true,
-      stroke: false
-    }
-  },
   { comp: CameraComp,
     attrs: {
-      width: 32,
-      height: 18,
+      width: 33,
+      height: 19,
       backgroundColor: '#000'
     }
   }

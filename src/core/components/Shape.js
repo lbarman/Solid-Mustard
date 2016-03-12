@@ -13,6 +13,9 @@ export default class Shape extends Sprite {
     this.createAttribute('strokeStyle', '#f00', Types.String);
     this.createAttribute('fill', true, Types.Boolean);
     this.createAttribute('stroke', false, Types.Boolean);
+    this.createAttribute('lineWidth', 1.0, Types.Float);
+    this.createAttribute('lineCap', 'butt', Types.String);
+    this.createAttribute('lineJoin', 'miter', Types.String);
   }
 
 
@@ -33,6 +36,9 @@ export default class Shape extends Sprite {
 
     ctx.fillStyle = this.fillStyle;
     ctx.strokeStyle = this.strokeStyle;
+    ctx.lineWidth = this.lineWidth;
+    ctx.lineCap = this.lineCap;
+    ctx.lineJoin = this.lineJoin;
 
     ctx.translate(this.transform.x, this.transform.y);
     ctx.rotate(this.transform.theta);

@@ -141,18 +141,21 @@ export default class Entity {
         return comp;
       }
     }
+    return null;
+  }
+  
+  hasComponent(Type) {
+    return this.getComponent(Type) != null;
   }
 
   onCreate() {
     for (let i of Object.keys(this._components)) {
-      const component = this._components[i];
       this._components[i].onCreate();
     }
   }
 
   onDestroy() {
     for (let i of Object.keys(this._components)) {
-      const component = this._components[i];
       this._components[i].onDestroy();
     }
   }

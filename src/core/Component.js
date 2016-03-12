@@ -131,6 +131,10 @@ export default class Component {
   getComponent(Comp) {
     return this._entity.getComponent(Comp);
   }
+  
+  hasComponent(Comp) {
+    return this._entity.hasComponent(Comp);
+  }
 
   destroy() {
     this.entity.destroy();
