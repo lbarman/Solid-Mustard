@@ -5,7 +5,7 @@ import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
-import Types from 'core/types.js';
+import Types from 'core/Types.js';
 
 export default class Grid extends Component {
 

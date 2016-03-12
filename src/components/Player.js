@@ -17,7 +17,7 @@ export default class Player extends Component {
     this.createAttribute('camera', null, Types.Component(CameraComp));
 
     this.camera = this.scene.newPrefab(Camera).getComponent(CameraComp);
-
+    this.CAMERA_SPEED = 0.01;
 
     if (game.playerId != this.entity.id) {
       this.getComponent(Input).disable();
@@ -36,11 +36,15 @@ export default class Player extends Component {
     // }
   }
 
-  onKeyDown(evt) {
-    switch(evt.which) {
-      case Keycodes.j:
-        RPC.call(this, 'spawn', null);
-        break;
+  onUpdate(dt) {
+    const input = this.getComponent(Input);
+
+    if (input.keys.right) {
+      this.camera.transform.x += dt * this.CAMERA_SPEED;
+    }
+    if (input.keys.left) {
+      this.camera.transform.x -= dt * this.CAMERA_SPEED;
     }
   }
+
 }
