@@ -34,7 +34,6 @@ export default class PathFinder {
       }
     }
     this.nextHop = nextHop;
-    console.log(nextHop);
     this.start = start;
     this.end = end;
   }

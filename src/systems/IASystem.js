@@ -19,6 +19,7 @@ export default class IASystem extends System {
   }
 
   updatePathFinder(pathFinder){
+    console.log("hops", JSON.stringify(this.pathFinder && this.pathFinder.nextHop) == JSON.stringify(pathFinder.nextHop))
     this.pathFinder = pathFinder;
   }
 

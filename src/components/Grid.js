@@ -5,6 +5,7 @@ import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
+import Types from 'core/types.js';
 
 export default class Grid extends Component {
 
@@ -20,6 +21,8 @@ export default class Grid extends Component {
     sprite.displayRadius = true;
     this.cursor.getComponent(TowerComp).disable();
 
+    this.createAttribute('start', {}, Types.Object);
+    this.createAttribute('end', {}, Types.Object);
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -47,8 +50,6 @@ export default class Grid extends Component {
     if(!this.grid[pos.x][pos.y]){
       this.createTower(pos);
       RPC.call(this, 'createTower', pos);
-      this.grid[pos.x][pos.y] = true;
-      this.updatePaths();
     }
   }
 
@@ -70,6 +71,8 @@ export default class Grid extends Component {
     const tower = this.scene.newPrefab(Tower);
     tower.transform.x = actualPos.x;
     tower.transform.y = actualPos.y;
+    this.grid[actualPos.x][actualPos.y] = true;
+    this.updatePaths();
   }
 
   onDraw(ctx) {
