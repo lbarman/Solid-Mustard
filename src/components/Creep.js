@@ -14,6 +14,7 @@ export default class Creep extends Component {
     this.iaSystem.addCreep(this);
 
     this.createAttribute('damage', 1, Types.Int);
+    this.createAttribute('reward', 20, Types.Int);
   }
 
   getGridNum() {
@@ -65,10 +66,11 @@ export default class Creep extends Component {
     this.iaSystem.removeCreep(this);
   }
 
-  decreaseLife(amount){
+  decreaseLife(amount, killer){
     this.life -= amount;
     if(this.life < 0){
       this.destroy();
+      killer.giveMoney(this.reward);
     }
   }
 }

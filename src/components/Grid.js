@@ -7,6 +7,8 @@ import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
 import Types from 'core/Types.js';
 
+import Player from 'components/Player.js';
+
 import HeadQuartersComp from 'components/HeadQuarters.js';
 
 class Grid extends Component {
@@ -26,6 +28,7 @@ class Grid extends Component {
     this.createAttribute('start', {}, Types.Object);
     this.createAttribute('grid_num', -1, Types.Int);
     this.createAttribute('grid', null, Types.Array);
+    this.createAttribute('player', null, Types.Component(Player));
     this.createAttribute('hq', null, Types.Component(HeadQuartersComp));
 
     this.grid = [];
@@ -93,11 +96,11 @@ class Grid extends Component {
         pos.y >= 0 && pos.y < Grid.V_CELLS &&
         !this.grid[pos.x][pos.y]){
 
-      console.log('Creating tower at '+pos.x+ 'on grid '+this.grid_num);
       const actualPos = this.snapToGrid(pos.x, pos.y);
       var testPaths = new PathFinder(this.grid, this.start, Grid.GOAL);
       if(testPaths.doesAnyPathExists()){
         const tower = this.scene.newPrefab(Tower);
+        tower.getComponent(TowerComp).player = this.player;
         tower.transform.x = actualPos.x + this.transform.x;
         tower.transform.y = actualPos.y;
         this.grid[actualPos.x][actualPos.y] = true;
