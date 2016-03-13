@@ -2,7 +2,7 @@ import Sprite from 'core/components/Sprite.js';
 import Types from 'core/Types.js';
 
 
-export default class SniperTowerSprite extends Sprite {
+export default class Text extends Sprite {
 
 
   onCreate() {

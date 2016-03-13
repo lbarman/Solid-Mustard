@@ -16,6 +16,9 @@ export default class GUI extends Component {
   onCreate() {
     super.onCreate();
 
+    this.nextTower = "blue";
+
+
     this.player = this.transform.parent.getComponent(Player);
     // This Component is not synchronized so we can do exotic shit in here
     this.playerLife = this.scene.newPrefab(GUIText, this).getComponent(Text);
@@ -111,14 +114,17 @@ export default class GUI extends Component {
       if(absX >= 12 && absX <= 13)
       {
         console.log("Tower 1");
+        this.nextTower = "red";
       }
       else if(absX >= 13.5 && absX <= 14.5)
       {
         console.log("Tower 2");
+        this.nextTower = "purple";
       }
       else if(absX >= 15 && absX <= 16)
       {
         console.log("Tower 3");
+        this.nextTower = "blue";
       }
     }
   }
