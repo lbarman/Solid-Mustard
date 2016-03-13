@@ -15,7 +15,7 @@ export default class IASystem extends System {
   removeCreep(creep) {
     var pos = this.creeps.indexOf(creep);
     if(pos >= 0){
-      this.creeps = this.creeps.splice(pos, 1);
+      this.creeps.splice(pos, 1);
     }
   }
 

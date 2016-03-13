@@ -82,8 +82,17 @@ class Game {
 
   update(dt) {
     for (let i of Object.keys(this._activeScenes)) {
-      this._activeScenes[i].update(dt);
-      this._activeScenes[i] = this._activeScenes[i].getFreshRef();
+      const currScene = this._activeScenes[i];
+      currScene.update(dt);
+      const newSceneRef = currScene.getFreshRef();
+      // TODO: this is so shitty, handle this differently
+      if (newSceneRef != currScene) {
+        newSceneRef._systems.length = 0;
+        for (let sys of currScene._systems) {
+          newSceneRef._systems.push(sys);
+        }
+        this._activeScenes[i] = newSceneRef;
+      }
     }
   }
 
