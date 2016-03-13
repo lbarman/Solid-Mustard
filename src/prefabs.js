@@ -9,12 +9,12 @@ import CameraComp from 'core/components/Camera.js';
 import GridComp from 'components/Grid.js';
 import PlayerComp from 'components/Player.js';
 import BulletComp from 'components/Bullet.js';
-import PawnComp from 'components/Pawn.js';
 import CreepComp from 'components/Creep.js';
 import MouseInput from 'components/MouseInput.js';
 import GUIComp from 'components/GUI.js';
 import PartyController from 'components/PartyController.js';
 import Text from 'components/Text.js';
+import HeadQuartersComp from 'components/HeadQuarters.js';
 
 import TowerComp from 'components/Tower.js';
 import LaserTowerComp from 'components/LaserTower.js';
@@ -45,20 +45,6 @@ export const Player = [
   }
 ];
 
-export const Pawn = [
-  { comp: Transform },
-  { comp: PawnComp },
-  { comp: RawSprite },
-  { comp: Input },
-  // { comp: CameraComp },
-  {
-    comp: Physics,
-    attrs: {
-      'radius': 6
-    }
-  }
-];
-
 export const Creep = [
   { comp: Transform },
   { comp: CreepComp },
@@ -70,6 +56,12 @@ export const Creep = [
       stroke: true,
       fill: false,
       lineWidth: 0.1
+    }
+  },
+  {
+    comp: Physics,
+    attrs: {
+      radius: 0.5 // Make radius a bit larger than sprite to maximize odds of hit
     }
   }
 ];
@@ -145,4 +137,24 @@ export const GUI = [
 export const GUIText = [
   { comp: Transform },
   { comp: Text }
+];
+
+export const HeadQuarters = [
+  { comp: Transform },
+  { comp: HeadQuartersComp },
+  {
+    comp: RectangleShape,
+    attrs: {
+      width: 3,
+      height: 3,
+      offsetX: -1,
+      offsetY: -1
+    }
+  },
+  {
+    comp: Physics,
+    attrs: {
+      radius: 1.5
+    }
+  }
 ];

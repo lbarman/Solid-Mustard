@@ -20,7 +20,7 @@ export default class extends Server {
     client.addToScene(this.scene);
     client.send('playerId', player.id);
     const grid = this.scene.makeGrid();
-    player.getComponent(PlayerComp).setGrid(grid);
+    player.getComponent(PlayerComp).grid = grid;
     player.transform.x = grid.grid_num * GridComp.H_CELLS + GridComp.H_CELLS/2;
     player.transform.y = GridComp.V_CELLS / 2;
   }

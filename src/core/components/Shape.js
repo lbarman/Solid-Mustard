@@ -16,6 +16,8 @@ export default class Shape extends Sprite {
     this.createAttribute('lineWidth', 1.0, Types.Float);
     this.createAttribute('lineCap', 'butt', Types.String);
     this.createAttribute('lineJoin', 'miter', Types.String);
+    this.createAttribute('offsetX', 0, Types.Int);
+    this.createAttribute('offsetY', 0, Types.Int);
   }
 
 
@@ -40,7 +42,7 @@ export default class Shape extends Sprite {
     ctx.lineCap = this.lineCap;
     ctx.lineJoin = this.lineJoin;
 
-    ctx.translate(this.transform.x, this.transform.y);
+    ctx.translate(this.transform.x + this.offsetX, this.transform.y + this.offsetY);
     ctx.rotate(this.transform.theta);
 
     ctx.beginPath();

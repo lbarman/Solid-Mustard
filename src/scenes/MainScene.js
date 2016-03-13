@@ -15,12 +15,6 @@ export default class MainScene extends Scene {
     super.onCreate();
 
     const physics = new PhysicSystem();
-    physics.boundaries = {
-      left: 0,
-      right: 800,
-      top: 0,
-      bottom: 600
-    };
     this.addSystem(physics);
 
     const ia = new IASystem();
@@ -44,7 +38,6 @@ export default class MainScene extends Scene {
     grid.transform.x = gridComp.H_CELLS * gridComp.grid_num;
 
     gridComp.start = {x:0, y:4};
-    gridComp.end = {x:gridComp.H_CELLS-1, y:12};
     gridComp.updatePaths();
 
     var creepEnt = this.newPrefab(Creep);

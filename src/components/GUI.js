@@ -31,7 +31,7 @@ export default class GUI extends Component {
   }
 
   updateText() {
-    this.text.text = `Life: ${this.player.life}`;
+    this.text.text = `Life: ${this.player.grid.hq.life}`;
     this.t_nextWave.text = `Next wave in ${Math.floor(this.scene.controller.timeToNextWave / 1000)}`;
   }
 

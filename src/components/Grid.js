@@ -1,11 +1,13 @@
 import Component from 'core/Component.js';
 import RPC from 'core/RPC.js';
-import { Tower } from 'prefabs.js';
+import { Tower, HeadQuarters } from 'prefabs.js';
 import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
 import Types from 'core/Types.js';
+
+import HeadQuartersComp from 'components/HeadQuarters.js';
 
 class Grid extends Component {
 
@@ -22,9 +24,9 @@ class Grid extends Component {
     this.cursor.getComponent(TowerComp).disable();
 
     this.createAttribute('start', {}, Types.Object);
-    this.createAttribute('end', {}, Types.Object);
     this.createAttribute('grid_num', -1, Types.Int);
     this.createAttribute('grid', null, Types.Array);
+    this.createAttribute('hq', null, Types.Component(HeadQuartersComp));
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -34,11 +36,15 @@ class Grid extends Component {
       }
     }
 
+    this.hq = this.scene.newPrefab(HeadQuarters, this).getComponent(HeadQuartersComp);
+    this.hq.transform.localX = Grid.GOAL.x;
+    this.hq.transform.localY = Grid.GOAL.y;
+
     this.activeCell = null;
   }
 
   updatePaths(){
-    var pathFinder = new PathFinder(this.grid, this.start, this.end);
+    var pathFinder = new PathFinder(this.grid, this.start, Grid.GOAL);
     this.scene.getSystem(IASystem).setPathFinder(pathFinder, this.grid_num);
   }
 
@@ -89,7 +95,7 @@ class Grid extends Component {
 
       console.log('Creating tower at '+pos.x+ 'on grid '+this.grid_num);
       const actualPos = this.snapToGrid(pos.x, pos.y);
-      var testPaths = new PathFinder(this.grid, this.start, this.end);
+      var testPaths = new PathFinder(this.grid, this.start, Grid.GOAL);
       if(testPaths.doesAnyPathExists()){
         const tower = this.scene.newPrefab(Tower);
         tower.transform.x = actualPos.x + this.transform.x;
@@ -126,5 +132,6 @@ class Grid extends Component {
 
 Grid.V_CELLS = 18;
 Grid.H_CELLS = 32;
+Grid.GOAL = {x:Grid.H_CELLS-3, y:12};
 
 export default Grid;

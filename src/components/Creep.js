@@ -3,11 +3,13 @@ import IASystem from 'systems/IASystem.js';
 import Grid from 'components/Grid.js';
 import Types from 'core/Types.js';
 
+import HeadQuarters from 'components/HeadQuarters.js';
+
 export default class Creep extends Component {
 
   onCreate() {
     this.SPEED = 2.0;
-    this.life = 2000;
+    this.life = 20000;
     this.iaSystem = this.scene.getSystem(IASystem);
     this.iaSystem.addCreep(this);
 
@@ -47,11 +49,15 @@ export default class Creep extends Component {
     this.transform.x += dx;
     this.transform.y += dy;
     if(distToGoal < move){
-      var end = pathFinder.end;
-      if(this.nextGoal.x == end.x && this.nextGoal.y == end.y){
-        this.destroy();
-      }
       this.nextGoal = undefined;
+    }
+  }
+
+  onCollision(evt) {
+    const hq = evt.other.getComponent(HeadQuarters);
+    if (hq) {
+      this.destroy();
+      hq.hit(this.damage);
     }
   }
 
