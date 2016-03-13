@@ -1,10 +1,13 @@
 import Component from 'core/Component.js';
 import RPC from 'core/RPC.js';
-import { Tower, HeadQuarters } from 'prefabs.js';
+import { Tower, SniperTower, LaserTower, HeadQuarters } from 'prefabs.js';
 import IASystem from 'systems/IASystem.js';
 import PathFinder from 'utils/PathFinder.js';
 import TowerSprite from 'components/TowerSprite.js';
 import TowerComp from 'components/Tower.js';
+import SniperTowerComp from 'components/SniperTower.js';
+import LaserTowerComp from 'components/LaserTower.js';
+import GUIComp from 'components/GUI.js';
 import Types from 'core/Types.js';
 
 import Player from 'components/Player.js';
@@ -14,6 +17,7 @@ import HeadQuartersComp from 'components/HeadQuarters.js';
 class Grid extends Component {
 
   onCreate() {
+
     super.onCreate();
     this.V_CELLS = Grid.V_CELLS;
     this.H_CELLS = Grid.H_CELLS;
@@ -21,7 +25,7 @@ class Grid extends Component {
     this.cursor = this.scene.newPrefab(Tower);
     this.cursor.disableNetworking();
     this.cursorSprite = this.cursor.getComponent(TowerSprite);
-    this.cursorSprite.color = '25, 225, 25';
+    this.cursorSprite.color = '255, 255, 255';
     this.cursorSprite.displayRadius = true;
     this.cursor.getComponent(TowerComp).disable();
 
@@ -59,6 +63,9 @@ class Grid extends Component {
 
   onClick(evt) {
     const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
+    pos.type = this.player.gui.getComponent(GUIComp).nextTower;
+    console.log(this.player.gui);
+    console.log("on click type is "+pos.type);
     this.createTower(pos);
     RPC.call(this, 'createTower', pos);
   }
@@ -100,12 +107,26 @@ class Grid extends Component {
 
       var testPaths = new PathFinder(this.grid, this.start, Grid.GOAL);
       if(testPaths.doesAnyPathExists()){
-        const tower = this.scene.newPrefab(Tower);
-        tower.getComponent(TowerComp).player = this.player;
+
+        let tower = null;
+
+        if(pos.type == "red") {  
+          tower = this.scene.newPrefab(Tower);
+          tower.getComponent(TowerComp).player = this.player;
+        }
+        else if(pos.type == "purple") {
+          tower = this.scene.newPrefab(SniperTower);
+          tower.getComponent(SniperTowerComp).player = this.player;
+        }
+        else if(pos.type == "blue") {
+          tower = this.scene.newPrefab(LaserTower);
+          tower.getComponent(LaserTowerComp).player = this.player;
+        }
+        
         tower.transform.x = actualPos.x + this.transform.x;
         tower.transform.y = actualPos.y;
+        
         this.grid[actualPos.x][actualPos.y] = true;
-        this.updatePaths();
       }
     }
   }

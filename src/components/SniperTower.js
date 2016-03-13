@@ -11,38 +11,13 @@ import { SniperBeam } from 'prefabs.js';
 export default class SniperTower extends Tower {
 
   onCreate() {
+    super.onCreate();
     this.LONGCOOLDOWN = 2000;
-    this.COOLDOWN = 3000;
+    this.COOLDOWN = 600;
 
     this.currentCoolDown = this.COOLDOWN;
     this.towerRange = 10;
     this.damage = 50;
-  }
-
-  onUpdate(dt) {
-
-    //update cooldown
-    this.currentCoolDown -= dt;
-
-    if(this.currentCoolDown < 0)
-    {
-      this.currentCoolDown = this.COOLDOWN;
-
-      //GET CREEP
-      if(this.targetCreep == null){
-        this.targetCreep = this.scene.getSystem(IASystem).getClosestCreep(this.transform.x, this.transform.y);
-      }
-
-      if(this.targetCreep == null || this.targetCreep.transform.distanceTo(this.transform) > this.towerRange){
-        this.currentCoolDown = this.LONGCOOLDOWN;
-      }else {
-        this.fire(this.targetCreep);
-      }
-    }
-  }
-
-  decreaseCooldown() {
-
   }
 
   fire(creep) {
