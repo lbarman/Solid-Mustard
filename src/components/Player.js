@@ -22,6 +22,7 @@ export default class Player extends Component {
     const camera = this.getComponent(CameraComp);
     this.CAMERA_SPEED = 0.01;
 
+
     if (game.playerId != this.entity.id) {
       this.getComponent(Input).disable();
       camera.disable();

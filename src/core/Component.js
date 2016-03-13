@@ -4,8 +4,8 @@ import Types from './Types.js';
 const EVENT_RX = /^on[A-Z].*/;
 
 export default class Component {
-  constructor(entity, id) {
-    this._entity = entity;
+  constructor(id) {
+    this.entity = null;
     this._id = id;
     this._enabled = true;
     this._eventHandlers = {};
@@ -112,28 +112,24 @@ export default class Component {
     return [];
   }
 
-  get entity() {
-    return this._entity;
-  }
-
   get scene() {
-    return this._entity.scene;
+    return this.entity.scene;
   }
 
   get transform() {
-    return this._entity.transform;
+    return this.entity.transform;
   }
 
   get physics() {
-    return this._entity.physics;
+    return this.entity.physics;
   }
 
   getComponent(Comp) {
-    return this._entity.getComponent(Comp);
+    return this.entity.getComponent(Comp);
   }
 
   hasComponent(Comp) {
-    return this._entity.hasComponent(Comp);
+    return this.entity.hasComponent(Comp);
   }
 
   destroy() {

@@ -59,17 +59,25 @@ export default class Entity {
     }
   }
 
-  addComponent(Comp, id = null) {
-    var comp_id = (id == null) ? uid() : id;
-    var comp = new Comp(this, comp_id);
-    this._components[comp_id] = comp;
+  /**
+   *  @private
+   */
+  addComponentInstance(comp) {
+    this._components[comp.id] = comp;
+    comp.entity = this;
     this._registerComponentHandlers(comp);
 
     // Special case optimization for extremely common components
-    if (Comp.name === 'Transform') {
+    if (comp.constructor.name === 'Transform') {
       this._transform = comp;
     }
     return comp;
+  }
+
+  addComponent(Comp, id = null) {
+    var comp_id = (id == null) ? uid() : id;
+    var comp = new Comp(comp_id);
+    return this.addComponentInstance(comp);
   }
 
   addComponents(Comps) {

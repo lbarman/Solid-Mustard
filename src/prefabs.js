@@ -13,6 +13,8 @@ import PawnComp from 'components/Pawn.js';
 import CreepComp from 'components/Creep.js';
 import MouseInput from 'components/MouseInput.js';
 import GUIComp from 'components/GUI.js';
+import PartyController from 'components/PartyController.js';
+import Text from 'components/Text.js';
 
 import TowerComp from 'components/Tower.js';
 import LaserTowerComp from 'components/LaserTower.js';
@@ -25,6 +27,10 @@ import SniperTowerSprite from 'components/SniperTowerSprite.js';
 import LaserBeamComp from 'components/LaserBeam.js';
 import MultiLaserBeamComp from 'components/MultiLaserBeam.js';
 import SniperBeamComp from 'components/SniperBeam.js';
+
+export const Controller = [
+  { comp: PartyController }
+];
 
 export const Player = [
   { comp: Transform },
@@ -134,4 +140,9 @@ export const GUI = [
   { comp: GUIComp },
   { comp: MouseInput },
   { comp: RawSprite }
+];
+
+export const GUIText = [
+  { comp: Transform },
+  { comp: Text }
 ];

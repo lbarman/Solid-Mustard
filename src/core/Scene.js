@@ -3,6 +3,7 @@ import GameModel from './GameModel.js';
 import { uid } from './utils.js';
 import { Log } from './Log.js';
 import GraphicSystem from './systems/GraphicSystem.js';
+import Component from './Component.js';
 
 
 /**
@@ -28,9 +29,10 @@ import GraphicSystem from './systems/GraphicSystem.js';
  *   }
  * }
  */
-export default class Scene {
+export default class Scene extends Component {
 
   constructor(id = null) {
+    super();
     this._model = new GameModel(this);
     this._id = (id != null) ? id : uid();
     this._systems = [];
@@ -55,7 +57,7 @@ export default class Scene {
    * Subclasses overriding this method **must** call super.onUpdate(dt)
    * @protected
    */
-  onUpdate(dt) {
+  update(dt) {
     for (const sys of this._systems) {
       sys.onUpdate(dt);
     }
@@ -97,8 +99,8 @@ export default class Scene {
   /**
    * @private
    */
-  newEntity() {
-    const entity = new Entity(this);
+  newEntity(id = null) {
+    const entity = new Entity(this, id);
     this._model.addEntity(entity);
     return entity;
   }
@@ -117,7 +119,7 @@ export default class Scene {
    * @return {Entity} The instantiated entity
    */
   newEntityWithComponents(comps, parent = null) {
-    const entity = this.newEntity(parent);
+    const entity = this.newEntity();
     entity.addComponents(comps);
     if (parent) {
       entity.transform.parent = parent.transform;
@@ -135,7 +137,7 @@ export default class Scene {
    * @return {type} The newly created entity
    */
   newPrefab(prefab, parent = null) {
-    const entity = this.newEntity(parent);
+    const entity = this.newEntity();
     for (const compDef of prefab) {
       const comp = entity.addComponent(compDef.comp);
       for (const i in compDef.attrs) {
@@ -155,6 +157,10 @@ export default class Scene {
   destroy(entity) {
     entity.onDestroy();
     this._model.removeEntity(entity);
+  }
+
+  getFreshRef() {
+    return this._model.entities[this.id].components[this.id];
   }
 
 }

@@ -1,9 +1,11 @@
 import Scene from 'core/Scene.js';
+import Types from 'core/Types.js';
 
+import PartyController from 'components/PartyController.js';
 import PhysicSystem from 'core/systems/PhysicSystem.js';
 import IASystem from 'systems/IASystem.js';
 
-import { Creep, Grid } from 'prefabs.js';
+import { Creep, Grid, Controller } from 'prefabs.js';
 
 import GridComp from 'components/Grid.js';
 
@@ -23,6 +25,9 @@ export default class MainScene extends Scene {
 
     const ia = new IASystem();
     this.addSystem(ia);
+
+    this.createAttribute('controller', null, Types.Component(PartyController));
+    this.controller = this.newPrefab(Controller).getComponent(PartyController);
 
     this._grids = [];
   }

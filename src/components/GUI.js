@@ -3,6 +3,8 @@ import Text from 'components/Text.js';
 import Transform from 'core/components/Transform.js';
 import Player from 'components/Player.js';
 
+import { GUIText } from 'prefabs.js';
+
 export default class GUI extends Component {
 
   onCreate() {
@@ -10,10 +12,16 @@ export default class GUI extends Component {
 
     this.player = this.transform.parent.getComponent(Player);
     // This Component is not synchronized so we can do exotic shit in here
-    this.text = this.scene.newEntityWithComponents([Transform, Text], this).getComponent(Text);
+    this.text = this.scene.newPrefab(GUIText, this).getComponent(Text);
     this.text.entity.disableNetworking();
     this.text.transform.localX = -9;
     this.text.transform.localY = -10;
+
+
+    this.t_nextWave = this.scene.newPrefab(GUIText, this).getComponent(Text);
+    this.t_nextWave.entity.disableNetworking();
+    this.t_nextWave.transform.localX = 0;
+    this.t_nextWave.transform.localY = -10;
 
     this.updateText();
   }
@@ -24,6 +32,7 @@ export default class GUI extends Component {
 
   updateText() {
     this.text.text = `Life: ${this.player.life}`;
+    this.t_nextWave.text = `Next wave in ${Math.floor(this.scene.controller.timeToNextWave / 1000)}`;
   }
 
   onDraw(ctx) {
