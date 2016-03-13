@@ -64,8 +64,6 @@ class Grid extends Component {
   onClick(evt) {
     const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
     pos.type = this.player.gui.getComponent(GUIComp).nextTower;
-    console.log(this.player.gui);
-    console.log("on click type is "+pos.type);
     this.createTower(pos);
     RPC.call(this, 'createTower', pos);
   }
@@ -110,7 +108,7 @@ class Grid extends Component {
 
         let tower = null;
 
-        if(pos.type == "red") {  
+        if(pos.type == "red") {
           tower = this.scene.newPrefab(Tower);
           tower.getComponent(TowerComp).player = this.player;
         }
@@ -122,11 +120,13 @@ class Grid extends Component {
           tower = this.scene.newPrefab(LaserTower);
           tower.getComponent(LaserTowerComp).player = this.player;
         }
-        
+
         tower.transform.x = actualPos.x + this.transform.x;
         tower.transform.y = actualPos.y;
-        
+
         this.grid[actualPos.x][actualPos.y] = true;
+
+        this.updatePaths();
       }
     }
   }

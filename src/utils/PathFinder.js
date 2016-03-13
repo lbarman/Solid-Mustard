@@ -5,7 +5,6 @@ export default class PathFinder {
 
   //grid : anything that resolve to true (object, boolean true, number) means there is a building at this position
   constructor(grid, start, end) {
-
     function isValid(position){
       return position.x >= 0 && position.y >= 0 && position.x < grid.length && position.y < grid[0].length;
     }
@@ -18,11 +17,12 @@ export default class PathFinder {
       nextHop[x] = [];
     }
     alreadyVisited[end.x][end.y] = true;
+    nextHop[end.x][end.y] = {x: end.x, y: end.y};
 
     var stack = [end];
     while (stack.length > 0) {
       const current = stack.shift();
-      for(var direction of directions){
+      for(let direction of directions){
         let newPosition = {x:current.x+direction.dx, y:current.y+direction.dy};
         if(isValid(newPosition)){
           if(!alreadyVisited[newPosition.x][newPosition.y]){
@@ -44,7 +44,8 @@ export default class PathFinder {
     if (x >= this.nextHop.length || y >= this.nextHop[x].length) {
       throw new Error('Out of bounds access !');
     }
-    return this.nextHop[x][y];
+    const hop = this.nextHop[x][y];
+    return {x: hop.x, y: hop.y};
   }
 
   doesAnyPathExists() {

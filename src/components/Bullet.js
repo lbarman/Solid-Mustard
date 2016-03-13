@@ -1,4 +1,3 @@
-import Pawn from './Pawn.js';
 import Component from 'core/Component.js';
 import Types from 'core/Types.js';
 

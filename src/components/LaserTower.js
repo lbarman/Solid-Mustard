@@ -2,7 +2,6 @@ import Component from 'core/Component.js';
 import MultiLaserBeamComp from 'components/MultiLaserBeam.js';
 import RectangleShape from 'core/components/RectangleShape.js';
 import Types from '../core/Types.js';
-import IASystem from '../systems/IASystem.js';
 import Creep from 'components/Creep.js';
 import Tower from 'components/Tower.js';
 
