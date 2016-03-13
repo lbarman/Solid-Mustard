@@ -103,6 +103,23 @@ export default class GUI extends Component {
   }
 
   onClick(evt) {
-    console.log(evt);
+    let absX = (evt.x - this.transform.x);
+    let absY = (evt.y - this.transform.y);
+
+    if(absY >= 9.7 && absY <= 10.7)
+    {
+      if(absX >= 12 && absX <= 13)
+      {
+        console.log("Tower 1");
+      }
+      else if(absX >= 13.5 && absX <= 14.5)
+      {
+        console.log("Tower 2");
+      }
+      else if(absX >= 15 && absX <= 16)
+      {
+        console.log("Tower 3");
+      }
+    }
   }
 }
