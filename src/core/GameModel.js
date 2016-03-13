@@ -48,7 +48,6 @@ export default class GameModel {
         };
       }
       snap[ent.id] = {
-        parent: (ent.parent == null) ? null : ent.parent.id,
         comps: serialized
       };
     }
@@ -89,8 +88,6 @@ export default class GameModel {
       const components = entity.components;
 
       this._entities[i] = entity;
-
-      entity.parent = snap[i].parent;
 
       // Recycle existing components and purge those which disappeared
       for (const comp_id of Object.keys(components)) {

@@ -12,6 +12,7 @@ import BulletComp from 'components/Bullet.js';
 import PawnComp from 'components/Pawn.js';
 import CreepComp from 'components/Creep.js';
 import MouseInput from 'components/MouseInput.js';
+import GUIComp from 'components/GUI.js';
 
 import TowerComp from 'components/Tower.js';
 import LaserTowerComp from 'components/LaserTower.js';
@@ -32,7 +33,7 @@ export const Player = [
   { comp: CameraComp,
     attrs: {
       width: GridComp.H_CELLS + 1,
-      height: GridComp.V_CELLS + 1,
+      height: GridComp.V_CELLS + 3,
       backgroundColor: '#000'
     }
   }
@@ -126,4 +127,11 @@ export const Grid = [
       lineWidth: 0.1
     }
   }
+];
+
+export const GUI = [
+  { comp: Transform },
+  { comp: GUIComp },
+  { comp: MouseInput },
+  { comp: RawSprite }
 ];

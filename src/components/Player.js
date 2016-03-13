@@ -7,12 +7,17 @@ import { Keycodes } from 'core/Keycodes.js';
 import RPC from 'core/RPC.js';
 
 import GridComp from 'components/Grid.js';
+import { GUI } from 'prefabs.js';
 
 
 export default class Player extends Component {
 
   onCreate() {
+    super.onCreate();
     this.createAttribute('grid', null, Types.Component(GridComp));
+    this.createAttribute('life', 10, Types.Int);
+    this.createAttribute('money', 100, Types.Int);
+
 
     const camera = this.getComponent(CameraComp);
     this.CAMERA_SPEED = 0.01;
@@ -20,6 +25,16 @@ export default class Player extends Component {
     if (game.playerId != this.entity.id) {
       this.getComponent(Input).disable();
       camera.disable();
+    } else {
+      this.gui = this.scene.newPrefab(GUI, this);
+      this.gui.disableNetworking();
+    }
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    if (this.gui) {
+      this.gui.destroy();
     }
   }
 

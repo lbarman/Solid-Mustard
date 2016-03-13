@@ -1,9 +1,9 @@
-import RawSprite from 'core/components/RawSprite.js';
+import Sprite from 'core/components/Sprite.js';
 import Tower from 'components/Tower.js';
 import Types from 'core/Types.js';
 
 
-export default class SniperTowerSprite extends RawSprite {
+export default class SniperTowerSprite extends Sprite {
 
   onCreate() {
     super.onCreate();
@@ -15,7 +15,7 @@ export default class SniperTowerSprite extends RawSprite {
     this._tower = this.getComponent(Tower);
   }
 
-  onDraw(ctx) {
+  draw(ctx) {
     //start drawing
     ctx.save();
 

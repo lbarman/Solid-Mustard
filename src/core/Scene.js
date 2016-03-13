@@ -97,9 +97,8 @@ export default class Scene {
   /**
    * @private
    */
-  newEntity(parent = null) {
+  newEntity() {
     const entity = new Entity(this);
-    entity.parent = parent;
     this._model.addEntity(entity);
     return entity;
   }
@@ -108,7 +107,7 @@ export default class Scene {
   /**
    * Creates a new entity in this scene with comps attached.
    *
-   * note: DO NOT USE THIS METHOD. Use {@link Scene#newPrefab} instead.  
+   * note: DO NOT USE THIS METHOD. Use {@link Scene#newPrefab} instead.
    * (The reason is that dependencies may not be properly loaded on the
    * client when using this method)
    *
@@ -120,6 +119,9 @@ export default class Scene {
   newEntityWithComponents(comps, parent = null) {
     const entity = this.newEntity(parent);
     entity.addComponents(comps);
+    if (parent) {
+      entity.transform.parent = parent.transform;
+    }
     entity.onCreate();
     return entity;
   }
@@ -139,6 +141,9 @@ export default class Scene {
       for (const i in compDef.attrs) {
         comp[i] = compDef.attrs[i];
       }
+    }
+    if (parent) {
+      entity.transform.parent = parent.transform;
     }
     entity.onCreate();
     return entity;

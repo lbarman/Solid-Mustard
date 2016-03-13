@@ -7,35 +7,12 @@ export default class Entity {
   constructor(scene, id = null) {
     this._components = {};
     this._scene = scene;
-    this._parent = null;
-    this._parentId = null;
     this._id = (id !== null) ? id : uid();
     this._compIdCounter = 0;
     this._isSynchronized = true;
     this._transform = null;
     this._handlers = {};
     this._destroyed = false;
-  }
-
-  get parent() {
-    if (this._parent == null) {
-      this._parent = this.scene.model.getEntity(this._parentId);
-    }
-    return this._parent;
-  }
-
-  set parent(arg) {
-    if (typeof arg === 'string') {
-      this._parent = null;
-      this._parentId = arg;
-    } else if (arg !== null && typeof arg === 'object') {
-      var entity = arg.entity || entity; // Links to entity even if component is passed
-      this._parent = arg;
-      this._parentId = arg.id;
-    } else {
-      this._parent = null;
-      this._parentId = null;
-    }
   }
 
   get id() {

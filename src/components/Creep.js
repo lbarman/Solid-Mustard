@@ -1,6 +1,7 @@
 import Component from 'core/Component.js';
 import IASystem from 'systems/IASystem.js';
 import Grid from 'components/Grid.js';
+import Types from 'core/Types.js';
 
 export default class Creep extends Component {
 
@@ -9,6 +10,8 @@ export default class Creep extends Component {
     this.life = 20000;
     this.iaSystem = this.scene.getSystem(IASystem);
     this.iaSystem.addCreep(this);
+
+    this.createAttribute('damage', 1, Types.Int);
   }
 
   getGridNum() {
