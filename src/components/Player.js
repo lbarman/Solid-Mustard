@@ -19,7 +19,7 @@ export default class Player extends Component {
     this.createAttribute('money', 100, Types.Int);
 
     const camera = this.getComponent(CameraComp);
-    this.CAMERA_SPEED = 0.01;
+    this.CAMERA_SPEED = 0.02;
 
 
     if (game.playerId != this.entity.id) {
