@@ -21,7 +21,7 @@ export default class PathFinder {
 
     var stack = [end];
     while (stack.length > 0) {
-      var current = stack.shift();
+      const current = stack.shift();
       for(var direction of directions){
         let newPosition = {x:current.x+direction.dx, y:current.y+direction.dy};
         if(isValid(newPosition)){

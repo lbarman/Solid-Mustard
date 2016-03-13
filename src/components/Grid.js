@@ -44,6 +44,7 @@ class Grid extends Component {
     this.hq.transform.localY = Grid.GOAL.y;
 
     this.activeCell = null;
+    this.updatePaths();
   }
 
   updatePaths(){
@@ -92,11 +93,11 @@ class Grid extends Component {
 
   createTower(pos) {
 
-    if( pos.x >= 0 && pos.x < Grid.H_CELLS &&
-        pos.y >= 0 && pos.y < Grid.V_CELLS &&
-        !this.grid[pos.x][pos.y]){
+    const actualPos = this.snapToGrid(pos.x, pos.y);
+    if( actualPos.x >= 0 && actualPos.x < Grid.H_CELLS &&
+        actualPos.y >= 0 && actualPos.y < Grid.V_CELLS &&
+        !this.grid[actualPos.x][actualPos.y]){
 
-      const actualPos = this.snapToGrid(pos.x, pos.y);
       var testPaths = new PathFinder(this.grid, this.start, Grid.GOAL);
       if(testPaths.doesAnyPathExists()){
         const tower = this.scene.newPrefab(Tower);
