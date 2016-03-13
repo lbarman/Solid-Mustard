@@ -52,7 +52,7 @@ export const Creep = [
     comp: CircleShape,
     attrs: {
       radius: 0.4,
-      strokeStyle: 'yellow',
+      strokeStyle: 'rgb(240,150,9)',
       stroke: true,
       fill: false,
       lineWidth: 0.1
