@@ -1,41 +1,35 @@
 import Pawn from './Pawn.js';
 import Component from 'core/Component.js';
-import CircleShape from 'core/components/CircleShape.js';
+import Types from 'core/Types.js';
 
-export default class Bullet extends Component {
+import Creep from 'components/Creep.js';
+import Player from 'components/Player.js';
+
+class Bullet extends Component {
 
   onCreate() {
-    this.physics.radius = 3;
-
-    const shape = this.getComponent(CircleShape);
-    shape.fillStyle = '#ff0';
-    shape.fill = true;
-    shape.radius = 1.5;
-  }
-
-  static get SPEED() {
-    return 0.2;
+    this.createAttribute('life', 2000, Types.Int);
+    this.createAttribute('damage', 20, Types.Int);
+    this.createAttribute('player', null, Types.Component(Player));
   }
 
   onCollision(evt) {
-    const other = evt.other;
-    if (other == null) {
-      // If it collided with the wall:
+    const creep = evt.other.getComponent(Creep);
 
-      if (evt.vx !== 0) {
-       this.physics.vx = -this.physics.vx;
-      } else if (evt.vy !== 0) {
-       this.physics.vy = -this.physics.vy;
-      }
+    if (creep != null) {
+      creep.decreaseLife(this.damage, this.player);
+      this.destroy();
+    }
+  }
 
-    } else {
-      const pawn = other.getComponent(Pawn);
-      if (pawn != null) {
-        // If it collided with a pawn, hit the pawn and destroy the bullet
-        pawn.hit(this);
-        this.destroy();
-      }
+  onUpdate(dt) {
+    if ((this.life -= dt) < 0) {
+      this.destroy();
     }
   }
 
 }
+
+Bullet.SPEED = 0.005;
+
+export default Bullet;

@@ -31,22 +31,25 @@ export default class MainScene extends Scene {
    * Returns the `Grid` component attached to the newly created grid.
    */
   makeGrid() {
+    const grid = this.newPrefab(Grid).getComponent(GridComp);
+    grid.grid_num = this._grids.length;
+    grid.transform.x = grid.H_CELLS * grid.grid_num;
 
-    const grid = this.newPrefab(Grid);
-    const gridComp = grid.getComponent(GridComp);
-    gridComp.grid_num = this._grids.length;
-    grid.transform.x = gridComp.H_CELLS * gridComp.grid_num;
+    grid.start = {x:0, y:4};
+    grid.updatePaths();
 
-    gridComp.start = {x:0, y:4};
-    gridComp.updatePaths();
 
-    var creepEnt = this.newPrefab(Creep);
-    creepEnt.transform.x = grid.transform.x + gridComp.start.x + 0.5;
-    creepEnt.transform.y = grid.transform.y + gridComp.start.y + 0.5;
+    this._grids.push(grid);
 
-    this._grids.push(gridComp);
+    return grid;
+  }
 
-    return gridComp;
+  spawnCreeps() {
+    for (let g of this._grids) {
+      var creepEnt = this.newPrefab(Creep);
+      creepEnt.transform.x = g.transform.x + g.start.x + 0.5;
+      creepEnt.transform.y = g.transform.y + g.start.y + 0.5;
+    }
   }
 
 }
