@@ -69,8 +69,26 @@ export const Creep = [
 export const Bullet = [
   { comp: Transform },
   { comp: BulletComp },
-  { comp: CircleShape },
-  { comp: Physics }
+  {
+    comp: RectangleShape,
+    attrs: {
+      fillStyle: 'rgba(255, 0, 0, 0.3)',
+      fill: true,
+      strokeStyle: '#f00',
+      stroke: true,
+      width: 0.332,
+      height: 0.332,
+      offsetX: -0.15,
+      offsetY: -0.15,
+      lineWidth: 0.1
+    }
+  },
+  {
+    comp: Physics,
+    attrs: {
+      radius: 0.332
+    }
+  }
 ];
 
 export const Tower = [

@@ -4,22 +4,19 @@ import RectangleShape from 'core/components/RectangleShape.js';
 import Types from '../core/Types.js';
 import IASystem from '../systems/IASystem.js';
 import Creep from 'components/Creep.js';
+import Tower from 'components/Tower.js';
 
 import { SniperBeam } from 'prefabs.js';
 
-export default class SniperTower extends Component {
+export default class SniperTower extends Tower {
 
   onCreate() {
     this.LONGCOOLDOWN = 2000;
     this.COOLDOWN = 3000;
 
     this.currentCoolDown = this.COOLDOWN;
-    this.createAttribute('width', 1, Types.Float);
-    this.createAttribute('height', 1, Types.Float);
-    this.createAttribute('targetCreep', null, Types.Component(Creep));
-    this.createAttribute('towerRange', 5, Types.Float);
-
-    this.createAttribute('damage', 100, Types.Float);
+    this.towerRange = 10;
+    this.damage = 50;
   }
 
   onUpdate(dt) {
@@ -50,7 +47,7 @@ export default class SniperTower extends Component {
 
   fire(creep) {
 
-    creep.decreaseLife(this.damage);
+    creep.decreaseLife(this.damage, this.player);
 
     let beam = this.scene.newPrefab(SniperBeam, this.parent);
 

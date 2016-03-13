@@ -5,14 +5,15 @@ import Types from '../core/Types.js';
 import IASystem from '../systems/IASystem.js';
 import Creep from 'components/Creep.js';
 import Player from 'components/Player.js';
+import BulletComp from 'components/Bullet.js';
 
-import { LaserBeam } from 'prefabs.js';
+import { Bullet } from 'prefabs.js';
 
 export default class Tower extends Component {
 
   onCreate() {
     this.LONGCOOLDOWN = 2000;
-    this.COOLDOWN = 200;
+    this.COOLDOWN = 400;
 
     this.currentCoolDown = this.COOLDOWN;
     this.createAttribute('width', 1, Types.Float);
@@ -21,7 +22,7 @@ export default class Tower extends Component {
     this.createAttribute('towerRange', 5, Types.Float);
     this.createAttribute('player', null, Types.Component(Player));
 
-    this.createAttribute('damage', 100, Types.Float);
+    this.createAttribute('damage', 30, Types.Float);
   }
 
   onUpdate(dt) {
@@ -51,14 +52,18 @@ export default class Tower extends Component {
   }
 
   fire(creep) {
+    const bullet = this.scene.newPrefab(Bullet).getComponent(BulletComp);
 
-    creep.decreaseLife(this.damage, this.player);
+    bullet.player = this.player;
+    bullet.damage = this.damage;
 
-    let beam = this.scene.newPrefab(LaserBeam, this.parent);
+    bullet.transform.x = this.transform.x + this.width/2;
+    bullet.transform.y = this.transform.y + this.height/2;
 
-    beam.getComponent(LaserBeamComp).sourceX = this.transform.x + this.width/2;
-    beam.getComponent(LaserBeamComp).sourceY = this.transform.y + this.height/2;
-    beam.getComponent(LaserBeamComp).targetX = creep.transform.x;
-    beam.getComponent(LaserBeamComp).targetY = creep.transform.y;
+    const dx = creep.transform.x - bullet.transform.x;
+    const dy = creep.transform.y - bullet.transform.y;
+    const l = Math.sqrt(dx*dx+dy*dy);
+    bullet.physics.vx = BulletComp.SPEED * dx / l;
+    bullet.physics.vy = BulletComp.SPEED * dy / l;
   }
 }
