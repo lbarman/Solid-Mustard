@@ -64,4 +64,9 @@ export default class Player extends Component {
     }
   }
 
+  giveMoney(reward) {
+    this.money += reward;
+    console.log(`Player money is now: ${this.money}`);
+  }
+
 }

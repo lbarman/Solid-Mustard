@@ -4,6 +4,7 @@ import RectangleShape from 'core/components/RectangleShape.js';
 import Types from '../core/Types.js';
 import IASystem from '../systems/IASystem.js';
 import Creep from 'components/Creep.js';
+import Player from 'components/Player.js';
 
 import { LaserBeam } from 'prefabs.js';
 
@@ -18,6 +19,7 @@ export default class Tower extends Component {
     this.createAttribute('height', 1, Types.Float);
     this.createAttribute('targetCreep', null, Types.Component(Creep));
     this.createAttribute('towerRange', 5, Types.Float);
+    this.createAttribute('player', null, Types.Component(Player));
 
     this.createAttribute('damage', 100, Types.Float);
   }
@@ -50,7 +52,7 @@ export default class Tower extends Component {
 
   fire(creep) {
 
-    creep.decreaseLife(this.damage);
+    creep.decreaseLife(this.damage, this.player);
 
     let beam = this.scene.newPrefab(LaserBeam, this.parent);
 
