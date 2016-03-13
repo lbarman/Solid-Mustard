@@ -52,7 +52,7 @@ export const Creep = [
     comp: CircleShape,
     attrs: {
       radius: 0.4,
-      strokeStyle: 'yellow',
+      strokeStyle: 'rgb(240,150,9)',
       stroke: true,
       fill: false,
       lineWidth: 0.1
@@ -137,7 +137,7 @@ export const Grid = [
     attrs: {
       width: GridComp.H_CELLS,
       height: GridComp.V_CELLS,
-      strokeStyle: '#0f0',
+      strokeStyle: 'rgb(0,171,169)',
       stroke: true,
       fill: false,
       lineWidth: 0.1
@@ -160,15 +160,7 @@ export const GUIText = [
 export const HeadQuarters = [
   { comp: Transform },
   { comp: HeadQuartersComp },
-  {
-    comp: RectangleShape,
-    attrs: {
-      width: 3,
-      height: 3,
-      offsetX: -1,
-      offsetY: -1
-    }
-  },
+  { comp : RawSprite },
   {
     comp: Physics,
     attrs: {
