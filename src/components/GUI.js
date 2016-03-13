@@ -2,8 +2,14 @@ import Component from 'core/Component.js';
 import Text from 'components/Text.js';
 import Transform from 'core/components/Transform.js';
 import Player from 'components/Player.js';
+import TowerSprite from 'components/TowerSprite.js';
+import LaserTowerSprite from 'components/LaserTowerSprite.js';
+import SniperTowerSprite from 'components/SniperTowerSprite.js';
+import TowerComp from 'components/Tower.js';
+import LaserTowerComp from 'components/LaserTower.js';
+import SniperTowerComp from 'components/SniperTower.js';
 
-import { GUIText } from 'prefabs.js';
+import { GUIText, Tower, LaserTower, SniperTower } from 'prefabs.js';
 
 export default class GUI extends Component {
 
@@ -23,6 +29,42 @@ export default class GUI extends Component {
     this.playerMoney.entity.disableNetworking();
     this.playerMoney.transform.localX = 12;
     this.playerMoney.transform.localY = -10;
+
+    var towerPosX = 12;
+    var towerPosY = 9.5;
+    var towerSpace = 1.5;
+
+    //red tower
+    this.tower1 = this.scene.newPrefab(Tower, this);
+    this.tower1.disableNetworking();
+    this.tower1Sprite = this.tower1.getComponent(TowerSprite);
+    this.tower1Sprite.displayRadius = false;
+    this.tower1.getComponent(TowerComp).disable();
+    this.tower1.transform.localX = towerPosX;
+    this.tower1.transform.localY = towerPosY;
+    this.tower1Sprite.enable();
+
+    //purple tower
+    this.tower2 = this.scene.newPrefab(SniperTower, this);
+    this.tower2.disableNetworking();
+    this.tower2Sprite = this.tower2.getComponent(SniperTowerSprite);
+    this.tower2Sprite.displayRadius = false;
+    this.tower2.getComponent(SniperTowerComp).disable();
+    this.tower2.transform.localX = towerPosX + towerSpace;
+    this.tower2.transform.localY = towerPosY;
+    this.tower2Sprite.enable();
+    
+
+    //blue tower
+    this.tower3 = this.scene.newPrefab(LaserTower, this);
+    this.tower3.disableNetworking();
+    this.tower3Sprite = this.tower3.getComponent(LaserTowerSprite);
+    this.tower3Sprite.displayRadius = false;
+    this.tower3.getComponent(LaserTowerComp).disable();
+    this.tower3.transform.localX = towerPosX + 2*towerSpace;
+    this.tower3.transform.localY = towerPosY;
+    this.tower3Sprite.enable();
+    
 
     this.timeBeforeNextWave = this.scene.newPrefab(GUIText, this).getComponent(Text);
     this.timeBeforeNextWave.entity.disableNetworking();
