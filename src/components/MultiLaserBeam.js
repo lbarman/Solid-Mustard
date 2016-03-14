@@ -14,11 +14,9 @@ export default class MultiLaserBeam extends Component {
     this.createAttribute('target', null, Types.Component(Creep));
     this.createAttribute('damage', 0, Types.Int);
     this.createAttribute('player', null, Types.Component(Player));
-
-    this.sourceX = 100;
-    this.sourceY = 100;
-
-    this.destroyIn = 1000;
+    this.createAttribute('destroyIn', 1000, Types.Int);
+    this.createAttribute('sourceX', 0, Types.Float);
+    this.createAttribute('sourceY', 0, Types.Float);
 
     this.entity.disableNetworking();
   }
