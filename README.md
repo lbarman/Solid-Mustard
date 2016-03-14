@@ -1,21 +1,13 @@
 color palette : [http://www.color-hex.com/color-palette/861]
 
-# TODO list
+##
 
-## GUI
+## Idées:
 
-Souris input
-
-Grille (avec tour qui stick)
-
-Tour (avec portée, firerate, dégats)
-
-Creeps (IA simple qui avance tout droit, qui meure)
-
-Camera qui zoome
-
-### Release 1 : creep qui avance tout droite, avec de la vie; des tours qui tirent sur les creeps.
-
+- Bloc "mur" qui coute pas très cher juste pour bloquer le passage
+- Possibilité de détruire une tour et récupérer son "returnCost" < "cost"
+- IA pour les creeps ("apprendre" à éviter les tours avec un *SARSA with backtracking*)
+- Creeps "boostés" qui peuvent détruire des buildings
 
 
 
@@ -29,4 +21,4 @@ Camera qui zoome
 
 4. Les creeps entre au milieu et sortent au milieu.
 
-5. Il y a une factory qui génère des creeps 
+5. Il y a une factory qui génère des creeps
