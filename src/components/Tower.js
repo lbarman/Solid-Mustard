@@ -1,13 +1,8 @@
-import Component from 'core/Component.js';
-import LaserBeamComp from 'components/LaserBeam.js';
-import RectangleShape from 'core/components/RectangleShape.js';
-import Types from '../core/Types.js';
-import IASystem from '../systems/IASystem.js';
-import Creep from 'components/Creep.js';
-import Player from 'components/Player.js';
-import BulletComp from 'components/Bullet.js';
-
+import BulletComp  from 'components/Bullet.js';
+import Component  from 'core/Component.js';
 import { Bullet } from 'prefabs.js';
+import Types  from '../core/Types.js';
+import IASystem  from '../systems/IASystem.js';
 
 
 export default class Tower extends Component {
@@ -18,9 +13,9 @@ export default class Tower extends Component {
     this.createAttribute('currentCoolDown', this.COOLDOWN, Types.Float);
     this.createAttribute('width', 1, Types.Float);
     this.createAttribute('height', 1, Types.Float);
-    this.createAttribute('targetCreep', null, Types.Component(Creep));
+    this.createAttribute('targetCreep', null, Types.Component);
     this.createAttribute('towerRange', 5, Types.Float);
-    this.createAttribute('player', null, Types.Component(Player));
+    this.createAttribute('player', null, Types.Component);
 
     this.createAttribute('damage', 30, Types.Float);
   }

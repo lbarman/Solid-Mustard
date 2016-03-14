@@ -1,19 +1,20 @@
 import Component from 'core/Component.js';
 
+import Types from 'core/Types.js';
+
 export default class SniperBeam extends Component {
 
   onCreate() {
     super.onCreate();
 
-    this.sourceX = 100;
-    this.sourceY = 100;
-    this.targetX = 500;
-    this.targetY = 500;
-
     this.DESTROY_IN_CONST = 600;
-    this.destroyIn = this.DESTROY_IN_CONST;
-    this.risingAlpha = true;
-    this.alpha = 0.5;
+    this.createAttribute('destroyIn', this.DESTROY_IN_CONST, Types.Int);
+    this.createAttribute('risingAlpha', true, Types.Boolean);
+    this.createAttribute('alpha', 0.5, Types.Float);
+    this.createAttribute('sourceX', 0, Types.Float);
+    this.createAttribute('sourceY', 0, Types.Float);
+    this.createAttribute('targetX', 0, Types.Float);
+    this.createAttribute('targetY', 0, Types.Float);
 
     this.entity.disableNetworking();
   }
@@ -38,22 +39,24 @@ export default class SniperBeam extends Component {
       this.alpha += 0.3;
 
       if(this.alpha >= 1) {
+        this.alpha = 1;
         this.risingAlpha = false;
       }
     }
     else
     {
-      this.alpha = 0.5 + ((0.0 + this.destroyIn)  / this.DESTROY_IN_CONST);
+      const ratio = ((this.destroyIn)  / this.DESTROY_IN_CONST);
+      this.alpha = ratio * ratio;
     }
 
-    ctx.strokeStyle = 'rgba(162,0,255, '+this.alpha+')'; 
+    ctx.strokeStyle = 'rgba(162,0,255, '+this.alpha+')';
     ctx.lineWidth = 0.1;
 
     ctx.beginPath();
 
     ctx.moveTo(this.sourceX, this.sourceY);
     ctx.lineTo(this.targetX, this.targetY);
-    ctx.closePath(); 
+    ctx.closePath();
     ctx.stroke();
 
     ctx.restore();

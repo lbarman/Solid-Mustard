@@ -1,7 +1,5 @@
-import Component from 'core/Component.js';
-import Creep from 'components/Creep.js';
-import Player from 'components/Player.js';
-import Types from 'core/Types.js';
+import Component  from 'core/Component.js';
+import Types  from 'core/Types.js';
 
 export default class MultiLaserBeam extends Component {
 
@@ -11,9 +9,9 @@ export default class MultiLaserBeam extends Component {
     this.DENSITY = 5;
     this.COLOR = '0,171,169';
 
-    this.createAttribute('target', null, Types.Component(Creep));
+    this.createAttribute('target', null, Types.Component);
     this.createAttribute('damage', 0, Types.Int);
-    this.createAttribute('player', null, Types.Component(Player));
+    this.createAttribute('player', null, Types.Component);
     this.createAttribute('destroyIn', 1000, Types.Int);
     this.createAttribute('sourceX', 0, Types.Float);
     this.createAttribute('sourceY', 0, Types.Float);

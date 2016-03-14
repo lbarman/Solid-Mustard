@@ -35,9 +35,9 @@ export default class Component {
 
   get attributes() {
     var attrs = {};
-    for (const attr of Object.keys(this.attributesList)) {
+    for (const attr of Object.keys(this._attributesList)) {
       const attrVal = this[attr];
-      if (Types.isComponent(this.attributesList[attr])) {
+      if (Types.isComponent(this._attributesList[attr])) {
         if (attrVal != null) {
           attrs[attr] = attrVal.entity.id + '/' + attrVal.id;
         } else {
@@ -48,10 +48,6 @@ export default class Component {
       }
     }
     return attrs;
-  }
-
-  get attributesList() {
-    return this._attributesList;
   }
 
   set attributes(attrs) {

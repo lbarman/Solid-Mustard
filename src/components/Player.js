@@ -1,12 +1,8 @@
-import Component from 'core/Component.js';
-import Types from 'core/Types.js';
-import Input from 'core/components/Input.js';
-import CameraComp from 'core/components/Camera.js';
-import game from 'core/Game.js';
-import { Keycodes } from 'core/Keycodes.js';
-import RPC from 'core/RPC.js';
-
-import GridComp from 'components/Grid.js';
+import Component  from 'core/Component.js';
+import game  from 'core/Game.js';
+import Types  from 'core/Types.js';
+import CameraComp  from 'core/components/Camera.js';
+import Input  from 'core/components/Input.js';
 import { GUI } from 'prefabs.js';
 
 
@@ -14,7 +10,7 @@ export default class Player extends Component {
 
   onCreate() {
     super.onCreate();
-    this.createAttribute('grid', null, Types.Component(GridComp));
+    this.createAttribute('grid', null, Types.Component);
     this.createAttribute('life', 10, Types.Int);
     this.createAttribute('money', 100, Types.Int);
 

@@ -1,15 +1,14 @@
-import Component from 'core/Component.js';
-import Types from 'core/Types.js';
+import Component  from 'core/Component.js';
+import Types  from 'core/Types.js';
+import Creep  from './Creep.js';
 
-import Creep from 'components/Creep.js';
-import Player from 'components/Player.js';
 
 class Bullet extends Component {
 
   onCreate() {
     this.createAttribute('life', 3000, Types.Int);
     this.createAttribute('damage', 20, Types.Int);
-    this.createAttribute('player', null, Types.Component(Player));
+    this.createAttribute('player', null, Types.Component);
   }
 
   onCollision(evt) {

@@ -10,7 +10,6 @@ import LaserTowerComp from 'components/LaserTower.js';
 import GUIComp from 'components/GUI.js';
 import Types from 'core/Types.js';
 
-import Player from 'components/Player.js';
 
 import HeadQuartersComp from 'components/HeadQuarters.js';
 
@@ -32,8 +31,8 @@ class Grid extends Component {
     this.createAttribute('start', {}, Types.Object);
     this.createAttribute('grid_num', -1, Types.Int);
     this.createAttribute('grid', null, Types.Array);
-    this.createAttribute('player', null, Types.Component(Player));
-    this.createAttribute('hq', null, Types.Component(HeadQuartersComp));
+    this.createAttribute('player', null, Types.Component);
+    this.createAttribute('hq', null, Types.Component);
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){

@@ -1,5 +1,5 @@
-import Types from '../Types.js';
-import Component from '../Component.js';
+import Component  from '../Component.js';
+import Types  from '../Types.js';
 
 /**
  * Defines a world transformation with (`x`, `y`) coordinates and an angle `theta`
@@ -10,7 +10,7 @@ export default class Transform extends Component {
     this.createAttribute('localX', 0, Types.Int);
     this.createAttribute('localY', 0, Types.Int);
     this.createAttribute('localTheta', 0, Types.Int);
-    this.createAttribute('parent', null, Types.Component(Transform));
+    this.createAttribute('parent', null, Types.Component);
   }
 
   get x() {
