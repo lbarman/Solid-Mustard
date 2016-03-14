@@ -16,8 +16,8 @@ import HeadQuartersComp from 'components/HeadQuarters.js';
 class Grid extends Component {
 
   onCreate() {
-
     super.onCreate();
+
     this.V_CELLS = Grid.V_CELLS;
     this.H_CELLS = Grid.H_CELLS;
 
@@ -102,31 +102,38 @@ class Grid extends Component {
         actualPos.y >= 0 && actualPos.y < Grid.V_CELLS &&
         !this.grid[actualPos.x][actualPos.y]){
 
+      // Checking if it would cut the path
+      this.grid[actualPos.x][actualPos.y] = true;
       var testPaths = new PathFinder(this.grid, this.start, Grid.GOAL);
-      if(testPaths.doesAnyPathExists()){
+      if(!testPaths.doesAnyPathExists()){
+        this.grid[actualPos.x][actualPos.y] = false;
+        return;
+      }
 
-        let tower = null;
-
-        if(pos.type == "red") {
+      // Selecting tower
+      let tower = null;
+      switch(pos.type) {
+        case 'red':
           tower = this.scene.newPrefab(Tower);
           tower.getComponent(TowerComp).player = this.player;
-        }
-        else if(pos.type == "purple") {
+        break;
+        case 'purple':
           tower = this.scene.newPrefab(SniperTower);
           tower.getComponent(SniperTowerComp).player = this.player;
-        }
-        else if(pos.type == "blue") {
+        break;
+        default:
+          console.log(`Warning: invalid tower type ${pos.type}, using default`);
+          /* falls through */
+        case 'blue':
           tower = this.scene.newPrefab(LaserTower);
           tower.getComponent(LaserTowerComp).player = this.player;
-        }
-
-        tower.transform.x = actualPos.x + this.transform.x;
-        tower.transform.y = actualPos.y;
-
-        this.grid[actualPos.x][actualPos.y] = true;
-
-        this.updatePaths();
+        break;
       }
+
+      tower.transform.x = actualPos.x + this.transform.x;
+      tower.transform.y = actualPos.y;
+
+      this.updatePaths();
     }
   }
 
