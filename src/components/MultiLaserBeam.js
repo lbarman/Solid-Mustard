@@ -1,4 +1,7 @@
 import Component from 'core/Component.js';
+import Creep from 'components/Creep.js';
+import Player from 'components/Player.js';
+import Types from 'core/Types.js';
 
 export default class MultiLaserBeam extends Component {
 
@@ -8,29 +11,36 @@ export default class MultiLaserBeam extends Component {
     this.DENSITY = 5;
     this.COLOR = '0,171,169';
 
+    this.createAttribute('target', null, Types.Component(Creep));
+    this.createAttribute('damage', 0, Types.Int);
+    this.createAttribute('player', null, Types.Component(Player));
+
     this.sourceX = 100;
     this.sourceY = 100;
 
-    this.targetCreep = null;
-
-    this.destroyIn = 2000;
+    this.destroyIn = 1000;
 
     this.entity.disableNetworking();
   }
 
   onUpdate(dt) {
-  	//prepare for remove
-  	this.destroyIn -= dt;
-  	if(this.destroyIn < 0)
-  	{
-  		this.destroy();
-  	}
+    if (this.target == null) {
+      this.destroy();
+    } else {
+      //prepare for remove
+      this.destroyIn -= dt;
+      if(this.destroyIn < 0)
+      {
+        this.target.decreaseLife(this.damage, this.player);
+        this.destroy();
+      }
+    }
   }
 
 
   onDraw(ctx) {
 
-    if(this.targetCreep == null) {
+    if(this.target == null) {
       return;
     }
     ctx.save();
@@ -38,12 +48,12 @@ export default class MultiLaserBeam extends Component {
     ctx.translate(this.transform.x, this.transform.y);
     ctx.rotate(this.transform.theta);
 
-    ctx.strokeStyle = 'rgb('+this.COLOR+')'; 
+    ctx.strokeStyle = 'rgb('+this.COLOR+')';
     ctx.lineWidth = 0.2;
 
     ctx.beginPath();
     ctx.moveTo(this.sourceX, this.sourceY);
-    ctx.lineTo(this.targetCreep.transform.x, this.targetCreep.transform.y);
+    ctx.lineTo(this.target.transform.x, this.target.transform.y);
     ctx.closePath();
     ctx.stroke();
 
@@ -51,8 +61,8 @@ export default class MultiLaserBeam extends Component {
     ctx.lineWidth = 0.1;
 
 
-    let dirX = (this.targetCreep.transform.x - this.sourceX);
-    let dirY = (this.targetCreep.transform.y - this.sourceY);
+    let dirX = (this.target.transform.x - this.sourceX);
+    let dirY = (this.target.transform.y - this.sourceY);
 
     let orthX = dirY;
     let orthY = -dirX;
@@ -63,13 +73,13 @@ export default class MultiLaserBeam extends Component {
 
     for(let i = 0; i < this.DENSITY; i++){
 
-      ctx.strokeStyle = 'rgba('+this.COLOR+', '+Math.random()+')'; 
+      ctx.strokeStyle = 'rgba('+this.COLOR+', '+Math.random()+')';
 
       ctx.beginPath();
       ctx.moveTo(this.sourceX, this.sourceY);
 
-      let x = this.targetCreep.transform.x;
-      let y = this.targetCreep.transform.y;
+      let x = this.target.transform.x;
+      let y = this.target.transform.y;
 
       let px1 = x - 3*dirX/4 + orthNormX * (Math.random() - 0.5);
       let py1 = y - 3*dirY/4 + orthNormY * (Math.random() - 0.5);

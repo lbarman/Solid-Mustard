@@ -12,8 +12,7 @@ export default class SniperTower extends Tower {
 
   onCreate() {
     super.onCreate();
-    this.LONGCOOLDOWN = 2000;
-    this.COOLDOWN = 600;
+    this.COOLDOWN = 2000;
 
     this.currentCoolDown = this.COOLDOWN;
     this.towerRange = 10;

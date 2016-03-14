@@ -7,7 +7,7 @@ import Player from 'components/Player.js';
 class Bullet extends Component {
 
   onCreate() {
-    this.createAttribute('life', 2000, Types.Int);
+    this.createAttribute('life', 3000, Types.Int);
     this.createAttribute('damage', 20, Types.Int);
     this.createAttribute('player', null, Types.Component(Player));
   }

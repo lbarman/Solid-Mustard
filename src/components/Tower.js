@@ -9,13 +9,13 @@ import BulletComp from 'components/Bullet.js';
 
 import { Bullet } from 'prefabs.js';
 
+
 export default class Tower extends Component {
 
   onCreate() {
-    this.LONGCOOLDOWN = 2000;
-    this.COOLDOWN = 400;
+    this.COOLDOWN = 700;
 
-    this.currentCoolDown = this.COOLDOWN;
+    this.createAttribute('currentCoolDown', this.COOLDOWN, Types.Float);
     this.createAttribute('width', 1, Types.Float);
     this.createAttribute('height', 1, Types.Float);
     this.createAttribute('targetCreep', null, Types.Component(Creep));
@@ -35,9 +35,7 @@ export default class Tower extends Component {
       this.currentCoolDown = this.COOLDOWN;
 
       //GET CREEP
-      if(this.targetCreep == null){
-        this.targetCreep = this.scene.getSystem(IASystem).getClosestCreep(this.transform);
-      }
+      this.targetCreep = this.scene.getSystem(IASystem).getClosestCreep(this.transform);
 
       if(this.targetCreep != null && this.targetCreep.transform.distanceTo(this.transform) <= this.towerRange){
         this.fire(this.targetCreep);
