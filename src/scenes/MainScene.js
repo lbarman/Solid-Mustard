@@ -18,9 +18,8 @@ export default class MainScene extends Scene {
     this.addSystem(ia);
 
     this.createAttribute('controller', null, Types.Component);
+    this.createAttribute('_grids', [], Types.Collection);
     this.controller = this.newPrefab(Controller).getComponent(PartyController);
-
-    this._grids = [];
   }
 
   /**

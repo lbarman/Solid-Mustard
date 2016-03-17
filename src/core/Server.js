@@ -1,6 +1,6 @@
+import ClientHandle  from './ClientHandle.js';
 import { Log } from './Log.js';
-import ClientHandle from './ClientHandle.js';
-import Timer from './Timer.js';
+import Timer  from './Timer.js';
 
 export default class {
   constructor(server) {

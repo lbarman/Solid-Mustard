@@ -1,6 +1,6 @@
 import { Log } from './Log.js';
-import NetCodec from './NetCodec.js';
-import RPC from './RPC.js';
+import NetCodec  from './NetCodec.js';
+import RPC  from './RPC.js';
 
 export default class ClientHandle {
 

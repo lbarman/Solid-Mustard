@@ -41,13 +41,6 @@ export default class Player extends Component {
     }
   }
 
-  spawn() {
-    // if (this.pawn == null) {
-    //   this.pawn = this.scene.newPrefab(Pawn, this.entity).getComponent('Pawn');
-    //   this.pawn.reset();
-    // }
-  }
-
   onUpdate(dt) {
     super.onUpdate();
     const input = this.getComponent(Input);
@@ -62,7 +55,6 @@ export default class Player extends Component {
 
   giveMoney(reward) {
     this.money += reward;
-    console.log(`Player money is now: ${this.money}`);
   }
 
 }

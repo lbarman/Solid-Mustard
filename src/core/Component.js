@@ -1,9 +1,10 @@
+import Collection  from './Collection.js';
 import { Log } from './Log.js';
-import Types from './Types.js';
+import Types  from './Types.js';
 
 const EVENT_RX = /^on[A-Z].*/;
 
-export default class Component {
+class Component {
   constructor(id) {
     this.entity = null;
     this._id = id;
@@ -16,6 +17,14 @@ export default class Component {
     }
     this._attributesList = {};
   }
+
+
+  /**
+   * Returns true. Useful for duck typing.
+   *
+   * @return {boolean}  true
+   */
+  get isComponent() { return true; }
 
   onCreate() {}
   onDestroy() {}
@@ -37,12 +46,14 @@ export default class Component {
     var attrs = {};
     for (const attr of Object.keys(this._attributesList)) {
       const attrVal = this[attr];
-      if (Types.isComponent(this._attributesList[attr])) {
+      if (this._attributesList[attr] === Types.Component) {
         if (attrVal != null) {
           attrs[attr] = attrVal.entity.id + '/' + attrVal.id;
         } else {
           attrs[attr] = null;
         }
+      } else if (this._attributesList[attr] === Types.Collection) {
+        attrs[attr] = attrVal.serialize();
       } else {
         attrs[attr] = attrVal;
       }
@@ -57,36 +68,17 @@ export default class Component {
   }
 
   _createComponentAttribute(name) {
+    // Back Component attribute implementation by a Collection to avoid code duplication
+    const collection = new Collection(this);
     const oldProp = this[name];
+
     // Use the closure to store component and component id hidden from outside
-    var compId = null;
-    var entId = null;
-    var compRef = null;
     Object.defineProperty(this, name, {
       get: () => {
-        if (compRef === null) {
-          const entity = this.scene.model.getEntity(entId);
-          if (entity != null) {
-            compRef = entity.components[compId] || null;
-          }
-        } else if (compRef.entity.destroyed === true) {
-          compId = compRef = entId = null;
-        }
-        return compRef;
+        return collection.first();
       },
       set: (comp) => {
-         if (typeof comp === 'string') {
-          var parts = comp.split('/');
-          entId = parts[0];
-          compId = parts[1];
-          compRef = null;
-        } else if (comp !== null && typeof comp === 'object') {
-          entId = comp.entity.id;
-          compId = comp.id;
-          compRef = comp;
-        } else {
-          compId = compRef = entId = null;
-        }
+        collection.set(0, comp);
       }
     });
     if (oldProp != null) {
@@ -94,9 +86,53 @@ export default class Component {
     }
   }
 
+  _createCollectionAttribute(name) {
+    const collection = new Collection(this);
+    const oldProp = this[name];
+
+    Object.defineProperty(this, name, {
+      get: () => {
+        return collection;
+      },
+      set: (comps) => {
+        collection.setAll(comps);
+      }
+    });
+    collection.setAll(oldProp);
+  }
+
+  /**
+   * Define a component attribute. This function must only be called in the component's
+   * {Component.onCreate} method.
+   *
+   * This is only relevant for networked games. Any state must be stored in
+   * component attributes rather than direct javascript properties.
+   *
+   * @example
+   *
+   * class MyComponent extends Component {
+   *   onCreate() {
+   *     this.createAttribute('life', 3, Types.Int);
+   *
+   *     this.life = 4; // Life is persisted over the network
+   *
+   *     this.health = 3; // Health might be lost anytime because it is not an attribute
+   *   }
+   * }
+   *
+   * See the manual for more information on component attributes and netorking.
+   *
+   * @param  {string} name     Name of the attribute to declare
+   * @param  {Any} defaultVal Default attribute value. If this[name] is null
+   *     or not defined, this[name] is set to defaultVal at creation time.
+   * @param  {Type} type       Defines the type for this parameter. See all types
+   *     definition in {@link Types}
+   */
   createAttribute(name, defaultVal, type) {
-    if (Types.isComponent(type)) {
+    if (type == Types.Component) {
       this._createComponentAttribute(name);
+    } else if (type == Types.Collection) {
+      this._createCollectionAttribute(name);
     } else if(typeof this[name] === 'undefined') {
       this[name] = defaultVal;
     }
@@ -140,3 +176,6 @@ export default class Component {
     this._enabled = true;
   }
 }
+
+
+export default Component;

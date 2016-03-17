@@ -1,7 +1,6 @@
-import { Log } from './Log.js';
-import Timer from './Timer.js';
-
 import * as prefabs from '../prefabs.js';
+import {Log} from './Log.js';
+import Timer from './Timer.js';
 
 class Game {
 

@@ -44,7 +44,7 @@ export const Keycodes = {
   '\\': 220,
   ']': 221,
   "'": 222
-}
+};
 
 // Helper aliases
 

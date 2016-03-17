@@ -1,6 +1,6 @@
-import { uid } from './utils.js';
 import { Log } from './Log.js';
 import Physics from './components/Physics.js';
+import { uid } from './utils.js';
 
 export default class Entity {
 
@@ -74,12 +74,23 @@ export default class Entity {
     return comp;
   }
 
+  /**
+   * Attaches one component to this entity
+   *
+   * @param  {Component.constructor} Comp Component to add
+   * @param {string} [id] component id. If not specified, a new id is generated
+   */
   addComponent(Comp, id = null) {
     var comp_id = (id == null) ? uid() : id;
     var comp = new Comp(comp_id);
     return this.addComponentInstance(comp);
   }
 
+  /**
+   * Attaches multiple components to this entity
+   *
+   * @param  {Component.constructor[]} Comps Components to add
+   */
   addComponents(Comps) {
     for (let Comp of Comps) {
       this.addComponent(Comp);
@@ -113,6 +124,7 @@ export default class Entity {
   destroy() {
     this._destroyed = true;
   }
+
 
   getComponent(Type) {
     var name = Type;
