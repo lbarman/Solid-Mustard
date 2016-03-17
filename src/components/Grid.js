@@ -1,17 +1,15 @@
-import Component from 'core/Component.js';
-import RPC from 'core/RPC.js';
+import GUIComp  from 'components/GUI.js';
+import HeadQuartersComp  from 'components/HeadQuarters.js';
+import LaserTowerComp  from 'components/LaserTower.js';
+import PathFinder  from 'components/PathFinder.js';
+import SniperTowerComp  from 'components/SniperTower.js';
+import TowerComp  from 'components/Tower.js';
+import TowerSprite  from 'components/TowerSprite.js';
+import Component  from 'core/Component.js';
+import RPC  from 'core/RPC.js';
+import Types  from 'core/Types.js';
 import { Tower, SniperTower, LaserTower, HeadQuarters } from 'prefabs.js';
-import IASystem from 'systems/IASystem.js';
-import PathFinder from 'utils/PathFinder.js';
-import TowerSprite from 'components/TowerSprite.js';
-import TowerComp from 'components/Tower.js';
-import SniperTowerComp from 'components/SniperTower.js';
-import LaserTowerComp from 'components/LaserTower.js';
-import GUIComp from 'components/GUI.js';
-import Types from 'core/Types.js';
-
-
-import HeadQuartersComp from 'components/HeadQuarters.js';
+import IASystem  from 'systems/IASystem.js';
 
 class Grid extends Component {
 
@@ -47,12 +45,13 @@ class Grid extends Component {
     this.hq.transform.localY = Grid.GOAL.y;
 
     this.activeCell = null;
+    this._pathFinder = this.getComponent(PathFinder);
     this.updatePaths();
   }
 
   updatePaths(){
-    var pathFinder = new PathFinder(this.grid, this.start, Grid.GOAL);
-    this.scene.getSystem(IASystem).setPathFinder(pathFinder, this.grid_num);
+    this._pathFinder.update(this.grid, this.start, Grid.GOAL);
+    this.scene.getSystem(IASystem).setPathFinder(this._pathFinder, this.grid_num);
   }
 
   onDestroy() {
@@ -104,9 +103,11 @@ class Grid extends Component {
 
       // Checking if it would cut the path
       this.grid[actualPos.x][actualPos.y] = true;
-      var testPaths = new PathFinder(this.grid, this.start, Grid.GOAL);
-      if(!testPaths.doesAnyPathExists()){
+      this._pathFinder.update(this.grid, this.start, Grid.GOAL);
+      if(!this._pathFinder.doesAnyPathExists()){
+        // If we cannot place a tower (unlikely), restore pathfinder and grid
         this.grid[actualPos.x][actualPos.y] = false;
+        this._pathFinder.update(this.grid, this.start, Grid.GOAL);
         return;
       }
 

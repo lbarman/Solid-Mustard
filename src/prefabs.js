@@ -1,32 +1,29 @@
-import Transform from 'core/components/Transform.js';
-import RawSprite from 'core/components/RawSprite.js';
-import Physics from 'core/components/Physics.js';
-import Input from 'core/components/Input.js';
-import RectangleShape from 'core/components/RectangleShape.js';
-import CircleShape from 'core/components/CircleShape.js';
-import CameraComp from 'core/components/Camera.js';
-
-import GridComp from 'components/Grid.js';
-import PlayerComp from 'components/Player.js';
-import BulletComp from 'components/Bullet.js';
-import CreepComp from 'components/Creep.js';
-import MouseInput from 'components/MouseInput.js';
-import GUIComp from 'components/GUI.js';
-import PartyController from 'components/PartyController.js';
-import Text from 'components/Text.js';
-import HeadQuartersComp from 'components/HeadQuarters.js';
-
-import TowerComp from 'components/Tower.js';
-import LaserTowerComp from 'components/LaserTower.js';
-import SniperTowerComp from 'components/SniperTower.js';
-
-import TowerSprite from 'components/TowerSprite.js';
-import LaserTowerSprite from 'components/LaserTowerSprite.js';
-import SniperTowerSprite from 'components/SniperTowerSprite.js';
-
-import LaserBeamComp from 'components/LaserBeam.js';
-import MultiLaserBeamComp from 'components/MultiLaserBeam.js';
-import SniperBeamComp from 'components/SniperBeam.js';
+import BulletComp  from 'components/Bullet.js';
+import CreepComp  from 'components/Creep.js';
+import GUIComp  from 'components/GUI.js';
+import GridComp  from 'components/Grid.js';
+import HeadQuartersComp  from 'components/HeadQuarters.js';
+import LaserBeamComp  from 'components/LaserBeam.js';
+import LaserTowerComp  from 'components/LaserTower.js';
+import LaserTowerSprite  from 'components/LaserTowerSprite.js';
+import MouseInput  from 'components/MouseInput.js';
+import MultiLaserBeamComp  from 'components/MultiLaserBeam.js';
+import PartyController  from 'components/PartyController.js';
+import PlayerComp  from 'components/Player.js';
+import SniperBeamComp  from 'components/SniperBeam.js';
+import SniperTowerComp  from 'components/SniperTower.js';
+import SniperTowerSprite  from 'components/SniperTowerSprite.js';
+import Text  from 'components/Text.js';
+import TowerComp  from 'components/Tower.js';
+import TowerSprite  from 'components/TowerSprite.js';
+import CameraComp  from 'core/components/Camera.js';
+import CircleShape  from 'core/components/CircleShape.js';
+import Input  from 'core/components/Input.js';
+import Physics  from 'core/components/Physics.js';
+import RawSprite  from 'core/components/RawSprite.js';
+import RectangleShape  from 'core/components/RectangleShape.js';
+import Transform  from 'core/components/Transform.js';
+import PathFinder  from 'components/PathFinder.js';
 
 export const Controller = [
   { comp: PartyController }
@@ -130,6 +127,7 @@ export const SniperBeam = [
 export const Grid = [
   { comp: Transform },
   { comp: GridComp },
+  { comp: PathFinder },
   { comp: RawSprite },
   { comp: MouseInput },
   {

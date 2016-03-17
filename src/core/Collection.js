@@ -4,8 +4,6 @@
  * A collection of components. This should not be created by user code, a Collection
  * instance is automatically available on attributes of type {@link Types}.Collection.
  *
- * @desc
- *
  * If an entity has been destroyed ({@link Component.destroy()}), then trying to access one
  * of its component _via_ a collection yields `null`.
  *
@@ -19,7 +17,7 @@
  * About iteration: It is possible to iterate over collections using the for ... of syntax.
  * Elements should not be removed nor added to the collection while it is being iterated over.
  *
- * @see {@link Component.createAttribute}
+ * @see {@link Component#createAttribute}
  *
  * @example
  *
@@ -27,6 +25,7 @@
  *
  *   onCreate() {
  *     this.createAttribute('trees', [], Types.Collection);
+ *     // this.trees is now an instance of Collection
  *   }
  *
  *   plantTree() {
@@ -55,7 +54,7 @@ export default class Collection {
   /**
    * @private
    *
-   * Serialize this collection to be sent on the network
+   * Serialize this collection to be sent on the network.
    *
    * @return {Array} An array of "entity_id/component_id" strings
    */
@@ -70,7 +69,7 @@ export default class Collection {
   }
 
   /**
-   * Appends a component to the end of the collection
+   * Appends a component to the end of the collection.
    *
    * @param  {Component|string} comp Component to insert
    */
@@ -79,7 +78,7 @@ export default class Collection {
   }
 
   /**
-   * Removes the last component in the collection
+   * Removes the last component in the collection.
    *
    * @return {type}  description
    */
@@ -93,7 +92,7 @@ export default class Collection {
    * Sets all elements of the collection according to the provided array. Any previous
    * reference is removed from the collection.
    *
-   * @param  {Array<string|Component>} data An array describing the new contents of this collection.
+   * @param  {Component[]} data An array describing the new contents of this collection.
    */
   setAll(data) {
     this.clear();

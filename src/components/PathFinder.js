@@ -1,10 +1,16 @@
-//var grid = [[false, false, false], [true, true, true], [true, false, false]];
-//var finder = new PathFinder(grid, {x:0, y:0}, {x:2, y:1});
-//console.log(finder.doesAnyPathExists());
-export default class PathFinder {
+import Component  from '../core/Component.js';
+import Types  from '../core/Types.js';
+
+export default class PathFinder extends Component {
+
+  onCreate() {
+    this.createAttribute('nextHop', null, Types.Array);
+    this.createAttribute('start', null, Types.Object);
+    this.createAttribute('end', null, Types.Object);
+  }
 
   //grid : anything that resolve to true (object, boolean true, number) means there is a building at this position
-  constructor(grid, start, end) {
+  update(grid, start, end) {
     function isValid(position){
       return position.x >= 0 && position.y >= 0 && position.x < grid.length && position.y < grid[0].length;
     }
