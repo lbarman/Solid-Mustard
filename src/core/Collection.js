@@ -4,7 +4,7 @@
  * A collection of components. This should not be created by user code, a Collection
  * instance is automatically available on attributes of type {@link Types}.Collection.
  *
- * If an entity has been destroyed ({@link Component.destroy()}), then trying to access one
+ * If an entity has been destroyed ({@link Component#destroy}), then trying to access one
  * of its component _via_ a collection yields `null`.
  *
  * eg. (TODO: put this in a test case)
@@ -147,6 +147,7 @@ export default class Collection {
       throw new Error(`Out-of-bounds collection access (at position ${pos}, length=${this.length})`);
     }
 
+    // Trying to fetch component
     if (this._components[pos] == null) {
       const ids = this._componentsIds[pos];
       if (ids != null) {
@@ -155,8 +156,12 @@ export default class Collection {
           this._components[pos] = entity.components[ids.c] || null;
         }
       }
-    } else if (this._components[pos].entity.destroyed === true) {
+    }
+
+    // Destroyed components should not be returned
+    if (this._components[pos] != null && this._components[pos].entity.destroyed === true) {
       this._components[pos] = null;
+      this._componentsIds[pos] = null;
     }
 
     return this._components[pos];

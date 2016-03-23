@@ -1,5 +1,5 @@
 import { Log } from './Log.js';
-import Physics from './components/Physics.js';
+import Physics  from './components/Physics.js';
 import { uid } from './utils.js';
 
 export default class Entity {
@@ -126,6 +126,15 @@ export default class Entity {
   }
 
 
+  /**
+   * Returns the first comonent of type Type attached to this entity.
+   *
+   * Note that if you expect the entity to have multiple components of type Type,
+   * you should use the {@link #component} attribute instead using the component id.
+   *
+   * @param  {Component.constructor} Type Component type to get
+   * @return {Component} A component of type Type attached to this entity. null if none was found.
+   */
   getComponent(Type) {
     var name = Type;
     if (typeof Type !== 'string') {

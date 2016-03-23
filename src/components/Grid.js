@@ -10,6 +10,7 @@ import RPC  from 'core/RPC.js';
 import Types  from 'core/Types.js';
 import { Tower, SniperTower, LaserTower, HeadQuarters } from 'prefabs.js';
 import IASystem  from 'systems/IASystem.js';
+import Entity  from '../core/Entity.js';
 
 class Grid extends Component {
 
@@ -61,9 +62,12 @@ class Grid extends Component {
 
   onClick(evt) {
     const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
-    pos.type = this.player.gui.getComponent(GUIComp).nextTower;
-    this.createTower(pos);
-    RPC.call(this, 'createTower', pos);
+
+    if (this.player.gui) {
+      pos.type = this.player.gui.getComponent(GUIComp).nextTower;
+      this.createTower(pos);
+      RPC.call(this, 'createTower', pos);
+    }
   }
 
   onMouseMove(evt) {
