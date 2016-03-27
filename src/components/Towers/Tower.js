@@ -1,4 +1,4 @@
-import BulletComp  from 'components/Bullet.js';
+import BulletComp  from 'components/Projectiles/Bullet.js';
 import Component  from 'core/Component.js';
 import { Bullet } from 'prefabs.js';
 import Types  from '../core/Types.js';

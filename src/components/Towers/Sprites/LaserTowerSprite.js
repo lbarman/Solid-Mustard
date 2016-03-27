@@ -1,5 +1,5 @@
 import Sprite from 'core/components/Sprite.js';
-import Tower from 'components/Tower.js';
+import Tower from 'components/Towers/Tower.js';
 import Types from 'core/Types.js';
 
 

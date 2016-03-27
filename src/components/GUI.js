@@ -2,14 +2,19 @@ import Component from 'core/Component.js';
 import Text from 'components/Text.js';
 import Transform from 'core/components/Transform.js';
 import Player from 'components/Player.js';
-import TowerSprite from 'components/TowerSprite.js';
-import LaserTowerSprite from 'components/LaserTowerSprite.js';
-import SniperTowerSprite from 'components/SniperTowerSprite.js';
-import TowerComp from 'components/Tower.js';
-import LaserTowerComp from 'components/LaserTower.js';
-import SniperTowerComp from 'components/SniperTower.js';
 
 import { GUIText, Tower, LaserTower, SniperTower } from 'prefabs.js';
+
+
+//Towers
+import LaserTowerComp  from 'components/Towers/LaserTower.js';
+import SniperTowerComp  from 'components/Towers/SniperTower.js';
+import TowerComp  from 'components/Towers/Tower.js';
+
+//Towers - Sprites
+import TowerSprite  from 'components/Towers/Sprites/TowerSprite.js';
+import LaserTowerSprite from 'components/Towers/Sprites/LaserTowerSprite.js';
+import SniperTowerSprite from 'components/Towers/Sprites/SniperTowerSprite.js';
 
 export default class GUI extends Component {
 

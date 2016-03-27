@@ -1,16 +1,20 @@
 import GUIComp  from 'components/GUI.js';
 import HeadQuartersComp  from 'components/HeadQuarters.js';
-import LaserTowerComp  from 'components/LaserTower.js';
 import PathFinder  from 'components/PathFinder.js';
-import SniperTowerComp  from 'components/SniperTower.js';
-import TowerComp  from 'components/Tower.js';
-import TowerSprite  from 'components/TowerSprite.js';
 import Component  from 'core/Component.js';
 import RPC  from 'core/RPC.js';
 import Types  from 'core/Types.js';
 import { Tower, SniperTower, LaserTower, HeadQuarters } from 'prefabs.js';
 import IASystem  from 'systems/IASystem.js';
 import Entity  from '../core/Entity.js';
+
+//Towers
+import LaserTowerComp  from 'components/Towers/LaserTower.js';
+import SniperTowerComp  from 'components/Towers/SniperTower.js';
+import TowerComp  from 'components/Towers/Tower.js';
+
+//Towers - Sprites
+import TowerSprite  from 'components/Towers/Sprites/TowerSprite.js';
 
 class Grid extends Component {
 

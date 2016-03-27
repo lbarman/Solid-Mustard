@@ -1,21 +1,12 @@
-import BulletComp  from 'components/Bullet.js';
+
 import CreepComp  from 'components/Creep.js';
 import GUIComp  from 'components/GUI.js';
 import GridComp  from 'components/Grid.js';
 import HeadQuartersComp  from 'components/HeadQuarters.js';
-import LaserBeamComp  from 'components/LaserBeam.js';
-import LaserTowerComp  from 'components/LaserTower.js';
-import LaserTowerSprite  from 'components/LaserTowerSprite.js';
 import MouseInput  from 'components/MouseInput.js';
-import MultiLaserBeamComp  from 'components/MultiLaserBeam.js';
 import PartyController  from 'components/PartyController.js';
 import PlayerComp  from 'components/Player.js';
-import SniperBeamComp  from 'components/SniperBeam.js';
-import SniperTowerComp  from 'components/SniperTower.js';
-import SniperTowerSprite  from 'components/SniperTowerSprite.js';
 import Text  from 'components/Text.js';
-import TowerComp  from 'components/Tower.js';
-import TowerSprite  from 'components/TowerSprite.js';
 import CameraComp  from 'core/components/Camera.js';
 import CircleShape  from 'core/components/CircleShape.js';
 import Input  from 'core/components/Input.js';
@@ -24,6 +15,22 @@ import RawSprite  from 'core/components/RawSprite.js';
 import RectangleShape  from 'core/components/RectangleShape.js';
 import Transform  from 'core/components/Transform.js';
 import PathFinder  from 'components/PathFinder.js';
+
+//Projectiles
+import BulletComp  from 'components/Projectiles/Bullet.js';
+import LaserBeamComp  from 'components/Projectiles/LaserBeam.js';
+import MultiLaserBeamComp  from 'components/Projectiles/MultiLaserBeam.js';
+import SniperBeamComp  from 'components/Projectiles/SniperBeam.js';
+
+//Towers
+import LaserTowerComp  from 'components/Towers/LaserTower.js';
+import SniperTowerComp  from 'components/Towers/SniperTower.js';
+import TowerComp  from 'components/Towers/Tower.js';
+
+//Towers - Sprites
+import LaserTowerSprite  from 'components/Towers/Sprites/LaserTowerSprite.js';
+import SniperTowerSprite  from 'components/Towers/Sprites/SniperTowerSprite.js';
+import TowerSprite  from 'components/Towers/Sprites/TowerSprite.js';
 
 export const Controller = [
   { comp: PartyController }
