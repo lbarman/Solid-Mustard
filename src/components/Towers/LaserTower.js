@@ -18,6 +18,7 @@ export default class LaserTower extends Tower {
     this.currentCoolDown = this.COOLDOWN;
     this.towerRange = 5;
     this.damage = 20;
+    this.cost = 200;
   }
 
   fire(creep) {

@@ -9,6 +9,7 @@ export default class Tower extends Component {
 
   onCreate() {
     this.COOLDOWN = 700;
+    this.COST = 100;
 
     this.createAttribute('currentCoolDown', this.COOLDOWN, Types.Float);
     this.createAttribute('width', 1, Types.Float);
@@ -16,6 +17,7 @@ export default class Tower extends Component {
     this.createAttribute('targetCreep', null, Types.Component);
     this.createAttribute('towerRange', 5, Types.Float);
     this.createAttribute('player', null, Types.Component);
+    this.createAttribute('cost', this.COST, Types.Int)
 
     this.createAttribute('damage', 30, Types.Float);
   }

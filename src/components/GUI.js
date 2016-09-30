@@ -1,9 +1,10 @@
 import Component from 'core/Component.js';
 import Text from 'components/Text.js';
+import TowerInfoComp from 'components/TowerInfo.js';
 import Transform from 'core/components/Transform.js';
 import Player from 'components/Player.js';
 
-import { GUIText, Tower, LaserTower, SniperTower } from 'prefabs.js';
+import { GUIText, Tower, LaserTower, SniperTower, TowerInfo } from 'prefabs.js';
 
 
 //Towers
@@ -44,7 +45,7 @@ export default class GUI extends Component {
     this.timeBeforeNextWave.transform.localX = 15;
     this.timeBeforeNextWave.transform.localY = -10;
 
-    this.towerDesc = this.scene.newPrefab(GUIText, this).getComponent(Text);
+    this.towerDesc = this.scene.newPrefab(TowerInfo, this).getComponent(TowerInfoComp);
     this.towerDesc.entity.disableNetworking();
     this.towerDesc.transform.localX = -15;
     this.towerDesc.transform.localY = 10.5;
@@ -114,13 +115,13 @@ export default class GUI extends Component {
         this.towerDesc.text = "[no tower selected]";
         break;
       case "red":
-        this.towerDesc.text = "Red tower !";
+        this.towerDesc.text = "Red tower !<br />Cost : " + this.tower1.getComponent(TowerComp).cost
         break;
       case "purple":
-        this.towerDesc.text = "Purple tower !";
+        this.towerDesc.text = "Purple tower !\n test" + this.tower2.getComponent(SniperTowerComp).cost
         break;
       case "blue":
-        this.towerDesc.text = "Blue tower !";
+        this.towerDesc.text = "Blue tower ! <b>test</b>" + this.tower3.getComponent(LaserTowerComp).cost
         break;
     }
   }

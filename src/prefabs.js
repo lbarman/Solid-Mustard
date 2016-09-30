@@ -7,6 +7,7 @@ import MouseInput  from 'components/MouseInput.js';
 import PartyController  from 'components/PartyController.js';
 import PlayerComp  from 'components/Player.js';
 import Text  from 'components/Text.js';
+import TowerInfoComp  from 'components/TowerInfo.js';
 import CameraComp  from 'core/components/Camera.js';
 import CircleShape  from 'core/components/CircleShape.js';
 import Input  from 'core/components/Input.js';
@@ -161,6 +162,11 @@ export const GUI = [
 export const GUIText = [
   { comp: Transform },
   { comp: Text }
+];
+
+export const TowerInfo = [
+  { comp: Transform },
+  { comp: TowerInfoComp }
 ];
 
 export const HeadQuarters = [

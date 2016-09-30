@@ -17,6 +17,7 @@ export default class SniperTower extends Tower {
     this.currentCoolDown = this.COOLDOWN;
     this.towerRange = 10;
     this.damage = 50;
+    this.cost = 500;
   }
 
   fire(creep) {
