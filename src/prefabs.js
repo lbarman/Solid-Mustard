@@ -15,6 +15,7 @@ import RawSprite  from 'core/components/RawSprite.js';
 import RectangleShape  from 'core/components/RectangleShape.js';
 import Transform  from 'core/components/Transform.js';
 import PathFinder  from 'components/PathFinder.js';
+import PathShowerComp  from 'components/PathShower.js';
 
 //Projectiles
 import BulletComp  from 'components/Projectiles/Bullet.js';
@@ -172,4 +173,10 @@ export const HeadQuarters = [
       radius: 1.5
     }
   }
+];
+
+export const PathShower = [
+  { comp: Transform },
+  { comp: PathShowerComp },
+  { comp : RawSprite },
 ];

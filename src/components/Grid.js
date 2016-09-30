@@ -1,10 +1,11 @@
 import GUIComp  from 'components/GUI.js';
 import HeadQuartersComp  from 'components/HeadQuarters.js';
 import PathFinder  from 'components/PathFinder.js';
+import PathShowerComp  from 'components/PathShower.js';
 import Component  from 'core/Component.js';
 import RPC  from 'core/RPC.js';
 import Types  from 'core/Types.js';
-import { Tower, SniperTower, LaserTower, HeadQuarters } from 'prefabs.js';
+import { Tower, SniperTower, LaserTower, HeadQuarters, PathShower } from 'prefabs.js';
 import IASystem  from 'systems/IASystem.js';
 import Entity  from '../core/Entity.js';
 
@@ -20,6 +21,8 @@ class Grid extends Component {
 
   onCreate() {
     super.onCreate();
+
+    this.pathShowers = [];
 
     this.V_CELLS = Grid.V_CELLS;
     this.H_CELLS = Grid.H_CELLS;
@@ -54,9 +57,38 @@ class Grid extends Component {
     this.updatePaths();
   }
 
-  updatePaths(){
+  updatePaths() {
     this._pathFinder.update(this.grid, this.start, Grid.GOAL);
     this.scene.getSystem(IASystem).setPathFinder(this._pathFinder, this.grid_num);
+
+    /*
+     * Prints the path taken by the creeps
+     */
+
+    //remove old path
+    for (let ps of this.pathShowers) {
+      ps.destroy();
+    }
+    this.pathShowers = [];
+
+    //print new path, only if well defined
+    if (this.start != undefined && this.start.x != undefined && this.start.y != undefined) {
+      var x = this.start.x
+      var y = this.start.y
+      while (x != Grid.GOAL.x || y != Grid.GOAL.y) {
+
+        var a = this.scene.newPrefab(PathShower);
+        a.disableNetworking();
+        a.getComponent(PathShowerComp).transform.localX = x;
+        a.getComponent(PathShowerComp).transform.localY = y;
+
+        this.pathShowers.push(a);
+
+        var newVals = this._pathFinder.nextFrom(x, y)
+        x = newVals.x;
+        y = newVals.y;
+      }
+    }
   }
 
   onDestroy() {
