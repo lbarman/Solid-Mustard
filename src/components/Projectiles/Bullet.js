@@ -1,6 +1,6 @@
 import Component  from 'core/Component.js';
 import Types  from 'core/Types.js';
-import Creep  from './Creep.js';
+import Creep  from 'components/Creep.js';
 
 
 class Bullet extends Component {

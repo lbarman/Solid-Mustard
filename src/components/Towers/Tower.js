@@ -1,8 +1,8 @@
 import BulletComp  from 'components/Projectiles/Bullet.js';
 import Component  from 'core/Component.js';
 import { Bullet } from 'prefabs.js';
-import Types  from '../core/Types.js';
-import IASystem  from '../systems/IASystem.js';
+import Types  from 'core/Types.js';
+import IASystem  from 'systems/IASystem.js';
 
 
 export default class Tower extends Component {
