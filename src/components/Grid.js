@@ -27,6 +27,8 @@ class Grid extends Component {
     this.V_CELLS = Grid.V_CELLS;
     this.H_CELLS = Grid.H_CELLS;
 
+      this.createdTowers = [];
+
     this.cursor = this.scene.newPrefab(Tower);
     this.cursor.disableNetworking();
     this.cursorSprite = this.cursor.getComponent(TowerSprite);
@@ -103,7 +105,25 @@ class Grid extends Component {
 
         if(this.grid[pos.x][pos.y]) {
             //if he clicked on a tower, show infos
-            this.player.gui.getComponent(GUIComp).selectedTower = "blue";
+
+            for (let i = 0 ; i < this.createdTowers.length ; i++) {
+
+                var posX = this.createdTowers[i].transform.x % Grid.H_CELLS
+                var posY = this.createdTowers[i].transform.y
+
+                if(posX == pos.x && posY == pos.y) {
+                    if(this.createdTowers[i].getComponent(TowerComp)){
+                        this.player.gui.getComponent(GUIComp).selectedTower = "red";
+                    }
+                    if(this.createdTowers[i].getComponent(LaserTowerComp)){
+                        this.player.gui.getComponent(GUIComp).selectedTower = "blue";
+                    }
+                    if(this.createdTowers[i].getComponent(SniperTowerComp)){
+                        this.player.gui.getComponent(GUIComp).selectedTower = "purple";
+                    }
+                }
+            }
+
 
         } else {
             //otherwise, build a tower
@@ -180,6 +200,8 @@ class Grid extends Component {
 
       tower.transform.x = actualPos.x + this.transform.x;
       tower.transform.y = actualPos.y;
+
+        this.createdTowers.push(tower);
 
       this.updatePaths();
     }
