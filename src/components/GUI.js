@@ -154,6 +154,7 @@ export default class GUI extends Component {
       {
         this.nextTower = "blue";
       }
+      this.player.grid.setMouseMode("create")
     }
   }
 }

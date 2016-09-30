@@ -7,7 +7,7 @@ import RPC  from 'core/RPC.js';
 import Types  from 'core/Types.js';
 import { Tower, SniperTower, LaserTower, HeadQuarters, PathShower } from 'prefabs.js';
 import IASystem  from 'systems/IASystem.js';
-import Entity  from '../core/Entity.js';
+import Entity  from 'core/Entity.js';
 
 //Towers
 import LaserTowerComp  from 'components/Towers/LaserTower.js';
@@ -35,12 +35,14 @@ class Grid extends Component {
     this.cursorSprite.color = '255, 255, 255';
     this.cursorSprite.displayRadius = true;
     this.cursor.getComponent(TowerComp).disable();
+      this.cursorSprite.disable()
 
     this.createAttribute('start', {}, Types.Object);
     this.createAttribute('grid_num', -1, Types.Int);
     this.createAttribute('grid', null, Types.Array);
     this.createAttribute('player', null, Types.Component);
     this.createAttribute('hq', null, Types.Component);
+    this.createAttribute('mouseMode', "none", Types.String)  //possibilities : none, create
 
     this.grid = [];
     for(var x=0; x<this.H_CELLS; x++){
@@ -106,6 +108,8 @@ class Grid extends Component {
         if(this.grid[pos.x][pos.y]) {
             //if he clicked on a tower, show infos
 
+            this.setMouseMode("none")
+
             for (let i = 0 ; i < this.createdTowers.length ; i++) {
 
                 var posX = this.createdTowers[i].transform.x % Grid.H_CELLS
@@ -130,29 +134,33 @@ class Grid extends Component {
             pos.type = this.player.gui.getComponent(GUIComp).nextTower;
             this.createTower(pos);
             RPC.call(this, 'createTower', pos);
+            this.setMouseMode("create") //we remain in create
         }
     }
   }
 
   onMouseMove(evt) {
-    const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
+      const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
 
-    if( pos.x >= 0 && pos.x < Grid.H_CELLS &&
-        pos.y >= 0 && pos.y < Grid.V_CELLS) {
+      if (pos.x >= 0 && pos.x < Grid.H_CELLS &&
+          pos.y >= 0 && pos.y < Grid.V_CELLS) {
 
-      this.cursor.transform.x = pos.x + this.transform.x;
-      this.cursor.transform.y = pos.y;
+          this.cursor.transform.x = pos.x + this.transform.x;
+          this.cursor.transform.y = pos.y;
 
-      if (this.grid[pos.x][pos.y]){
-        this.cursorSprite.color = '225, 0, 0';
+          if (this.grid[pos.x][pos.y]) {
+              this.cursorSprite.color = '225, 0, 0';
+          } else {
+              this.cursorSprite.color = '0, 255, 0';
+          }
+          this.cursorSprite.enable();
       } else {
-        this.cursorSprite.color = '0, 255, 0';
+          this.cursorSprite.disable();
       }
 
-      this.cursorSprite.enable();
-    } else {
-      this.cursorSprite.disable();
-    }
+      if (this.mouseMode == "none") {
+          this.cursorSprite.disable();
+      }
   }
 
   snapToGrid(x, y) {
@@ -163,6 +171,11 @@ class Grid extends Component {
   }
 
   createTower(pos) {
+
+      if(this.mouseMode != "create"){
+          console.log("Not in create mode, returning...")
+          return;
+      }
 
     const actualPos = this.snapToGrid(pos.x, pos.y);
     if( actualPos.x >= 0 && actualPos.x < Grid.H_CELLS &&
@@ -176,7 +189,10 @@ class Grid extends Component {
         // If we cannot place a tower (unlikely), restore pathfinder and grid
         this.grid[actualPos.x][actualPos.y] = false;
         this._pathFinder.update(this.grid, this.start, Grid.GOAL);
-        return;
+
+          this.setMouseMode("none")
+
+          return;
       }
 
       // Selecting tower
@@ -204,8 +220,20 @@ class Grid extends Component {
         this.createdTowers.push(tower);
 
       this.updatePaths();
+    } else if (this.grid[actualPos.x][actualPos.y]) {
+        //there is a tower there
+        this.setMouseMode("none")
     }
   }
+
+    setMouseMode(mode) {
+        RPC.call(this, "_setMouseMode", mode)
+        this.mouseMode = mode;
+    }
+
+    _setMouseMode(mode) {
+        this.mouseMode = mode;
+    }
 
   onDraw(ctx) {
     ctx.save();
