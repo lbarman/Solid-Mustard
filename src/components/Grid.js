@@ -75,7 +75,7 @@ class Grid extends Component {
     if (this.start != undefined && this.start.x != undefined && this.start.y != undefined) {
       var x = this.start.x
       var y = this.start.y
-      while (x != Grid.GOAL.x || y != Grid.GOAL.y) {
+      while (Math.abs(x - Grid.GOAL.x) + Math.abs(y - Grid.GOAL.y) > 1) {
 
         var a = this.scene.newPrefab(PathShower);
         a.disableNetworking();
@@ -100,9 +100,17 @@ class Grid extends Component {
     const pos = this.snapToGrid(evt.x - this.transform.x, evt.y);
 
     if (this.player.gui) {
-      pos.type = this.player.gui.getComponent(GUIComp).nextTower;
-      this.createTower(pos);
-      RPC.call(this, 'createTower', pos);
+
+        if(this.grid[pos.x][pos.y]) {
+            //if he clicked on a tower, show infos
+            this.player.gui.getComponent(GUIComp).selectedTower = "blue";
+
+        } else {
+            //otherwise, build a tower
+            pos.type = this.player.gui.getComponent(GUIComp).nextTower;
+            this.createTower(pos);
+            RPC.call(this, 'createTower', pos);
+        }
     }
   }
 
@@ -162,13 +170,12 @@ class Grid extends Component {
           tower = this.scene.newPrefab(SniperTower);
           tower.getComponent(SniperTowerComp).player = this.player;
         break;
-        default:
-          console.log(`Warning: invalid tower type ${pos.type}, using default`);
-          /* falls through */
         case 'blue':
           tower = this.scene.newPrefab(LaserTower);
           tower.getComponent(LaserTowerComp).player = this.player;
-        break;
+          break;
+        default:
+          console.log(`Warning: invalid tower type ${pos.type}, using default`);
       }
 
       tower.transform.x = actualPos.x + this.transform.x;

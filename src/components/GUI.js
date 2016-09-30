@@ -22,6 +22,7 @@ export default class GUI extends Component {
     super.onCreate();
 
     this.nextTower = "blue";
+    this.selectedTower = "none";
 
 
     this.player = this.transform.parent.getComponent(Player);
@@ -35,8 +36,18 @@ export default class GUI extends Component {
     // This Component is not synchronized so we can do exotic shit in here
     this.playerMoney = this.scene.newPrefab(GUIText, this).getComponent(Text);
     this.playerMoney.entity.disableNetworking();
-    this.playerMoney.transform.localX = 12;
+    this.playerMoney.transform.localX = 10;
     this.playerMoney.transform.localY = -10;
+
+    this.timeBeforeNextWave = this.scene.newPrefab(GUIText, this).getComponent(Text);
+    this.timeBeforeNextWave.entity.disableNetworking();
+    this.timeBeforeNextWave.transform.localX = 15;
+    this.timeBeforeNextWave.transform.localY = -10;
+
+    this.towerDesc = this.scene.newPrefab(GUIText, this).getComponent(Text);
+    this.towerDesc.entity.disableNetworking();
+    this.towerDesc.transform.localX = -15;
+    this.towerDesc.transform.localY = 10.5;
 
     var towerPosX = 12;
     var towerPosY = 9.5;
@@ -72,12 +83,6 @@ export default class GUI extends Component {
     this.tower3.transform.localX = towerPosX + 2*towerSpace;
     this.tower3.transform.localY = towerPosY;
     this.tower3Sprite.enable();
-    
-
-    this.timeBeforeNextWave = this.scene.newPrefab(GUIText, this).getComponent(Text);
-    this.timeBeforeNextWave.entity.disableNetworking();
-    this.timeBeforeNextWave.transform.localX = -15;
-    this.timeBeforeNextWave.transform.localY = 10.5;
 
     this.updateText();
   }
@@ -96,7 +101,28 @@ export default class GUI extends Component {
 
     this.playerLife.text = builder;
     this.playerMoney.text = `${this.player.money}$`;
-    this.timeBeforeNextWave.text = `Next wave in ${Math.floor(this.scene.controller.timeToNextWave / 1000)} sec`;
+
+    var timeRem = Math.floor(this.scene.controller.timeToNextWave / 1000);
+    if(timeRem < 0) {
+      timeRem = 0;
+    }
+
+    this.timeBeforeNextWave.text = `${timeRem}s`;
+
+    switch(this.selectedTower){
+      case "none":
+        this.towerDesc.text = "[no tower selected]";
+        break;
+      case "red":
+        this.towerDesc.text = "Red tower !";
+        break;
+      case "purple":
+        this.towerDesc.text = "Purple tower !";
+        break;
+      case "blue":
+        this.towerDesc.text = "Blue tower !";
+        break;
+    }
   }
 
   onDraw(ctx) {
@@ -118,17 +144,14 @@ export default class GUI extends Component {
     {
       if(absX >= 12 && absX <= 13)
       {
-        console.log("Tower 1");
         this.nextTower = "red";
       }
       else if(absX >= 13.5 && absX <= 14.5)
       {
-        console.log("Tower 2");
         this.nextTower = "purple";
       }
       else if(absX >= 15 && absX <= 16)
       {
-        console.log("Tower 3");
         this.nextTower = "blue";
       }
     }
