@@ -38,82 +38,86 @@ export default class TowerInfo extends Sprite {
     }
 
 
-    var upgradeColor = "244, 191, 66"
-    var upgradePosX = -1
-    var upgradePosY = -1
+    this.upgradeColor = "244, 191, 66"
+    this.upgradePosX = -1
+    this.upgradePosY = -1
+
+    this.deleteColor = "244, 75, 66"
+    this.deletePosX = -1
+    this.deletePosY = 0.5
+
+    /*upgrade*/
 
     //body
     ctx.beginPath();
-    ctx.fillStyle = `rgba(${upgradeColor}, 0.3)`;
+    ctx.fillStyle = `rgba(${this.upgradeColor}, 0.3)`;
     ctx.lineWidth = 1;
-    ctx.moveTo(upgradePosX, upgradePosY);
-    ctx.lineTo(upgradePosX + this.width, upgradePosY);
-    ctx.lineTo(upgradePosX + this.width, upgradePosY + this.height);
-    ctx.lineTo(upgradePosX, upgradePosY + this.height);
+    ctx.moveTo(this.upgradePosX, this.upgradePosY);
+    ctx.lineTo(this.upgradePosX + this.width, this.upgradePosY);
+    ctx.lineTo(this.upgradePosX + this.width, this.upgradePosY + this.height);
+    ctx.lineTo(this.upgradePosX, this.upgradePosY + this.height);
     ctx.closePath();
     ctx.fill();
 
     //stronger border
     ctx.beginPath();
-    ctx.strokeStyle = `rgba(${upgradeColor}, 1)`;
+    ctx.strokeStyle = `rgba(${this.upgradeColor}, 1)`;
     ctx.lineWidth = 0.05;
-    ctx.moveTo(upgradePosX, upgradePosY);
-    ctx.lineTo(upgradePosX + this.width, upgradePosY);
-    ctx.lineTo(upgradePosX + this.width, upgradePosY + this.height);
-    ctx.lineTo(upgradePosX, upgradePosY + this.height);
+    ctx.moveTo(this.upgradePosX, this.upgradePosY);
+    ctx.lineTo(this.upgradePosX + this.width, this.upgradePosY);
+    ctx.lineTo(this.upgradePosX + this.width, this.upgradePosY + this.height);
+    ctx.lineTo(this.upgradePosX, this.upgradePosY + this.height);
     ctx.closePath();
     ctx.stroke();
 
     ctx.beginPath();
     ctx.lineWidth = 0.05;
-    ctx.moveTo(upgradePosX + this.width/2, upgradePosY + 1*this.height/5);
-    ctx.lineTo(upgradePosX + 4*this.width/5, upgradePosY + 2.5*this.height/5);
-    ctx.lineTo(upgradePosX + 3*this.width/5, upgradePosY + 2.5*this.height/5);
-    ctx.lineTo(upgradePosX + 3*this.width/5, upgradePosY + 4*this.height/5);
-    ctx.lineTo(upgradePosX + 2*this.width/5, upgradePosY + 4*this.height/5);
-    ctx.lineTo(upgradePosX + 2*this.width/5, upgradePosY + 2.5*this.height/5);
-    ctx.lineTo(upgradePosX + 1*this.width/5, upgradePosY + 2.5*this.height/5);
-    ctx.lineTo(upgradePosX + this.width/2, upgradePosY + 1*this.height/5);
+    ctx.moveTo(this.upgradePosX + this.width/2, this.upgradePosY + 1*this.height/5);
+    ctx.lineTo(this.upgradePosX + 4*this.width/5, this.upgradePosY + 2.5*this.height/5);
+    ctx.lineTo(this.upgradePosX + 3*this.width/5, this.upgradePosY + 2.5*this.height/5);
+    ctx.lineTo(this.upgradePosX + 3*this.width/5, this.upgradePosY + 4*this.height/5);
+    ctx.lineTo(this.upgradePosX + 2*this.width/5, this.upgradePosY + 4*this.height/5);
+    ctx.lineTo(this.upgradePosX + 2*this.width/5, this.upgradePosY + 2.5*this.height/5);
+    ctx.lineTo(this.upgradePosX + 1*this.width/5, this.upgradePosY + 2.5*this.height/5);
+    ctx.lineTo(this.upgradePosX + this.width/2, this.upgradePosY + 1*this.height/5);
     ctx.closePath();
     ctx.stroke();
 
-    var deleteColor = "244, 75, 66"
-    var deletePosX = -1
-    var deletePosY = 0.5
+    /* delete */
 
     //body
     ctx.beginPath();
-    ctx.fillStyle = `rgba(${deleteColor}, 0.3)`;
+    ctx.fillStyle = `rgba(${this.deleteColor}, 0.3)`;
     ctx.lineWidth = 1;
-    ctx.moveTo(deletePosX, deletePosY);
-    ctx.lineTo(deletePosX + this.width, deletePosY);
-    ctx.lineTo(deletePosX + this.width, deletePosY + this.height);
-    ctx.lineTo(deletePosX, deletePosY + this.height);
+    ctx.moveTo(this.deletePosX, this.deletePosY);
+    ctx.lineTo(this.deletePosX + this.width, this.deletePosY);
+    ctx.lineTo(this.deletePosX + this.width, this.deletePosY + this.height);
+    ctx.lineTo(this.deletePosX, this.deletePosY + this.height);
     ctx.closePath();
     ctx.fill();
 
     //stronger border
     ctx.beginPath();
-    ctx.strokeStyle = `rgba(${deleteColor}, 1)`;
+    ctx.strokeStyle = `rgba(${this.deleteColor}, 1)`;
     ctx.lineWidth = 0.05;
-    ctx.moveTo(deletePosX, deletePosY);
-    ctx.lineTo(deletePosX + this.width, deletePosY);
-    ctx.lineTo(deletePosX + this.width, deletePosY + this.height);
-    ctx.lineTo(deletePosX, deletePosY + this.height);
+    ctx.moveTo(this.deletePosX, this.deletePosY);
+    ctx.lineTo(this.deletePosX + this.width, this.deletePosY);
+    ctx.lineTo(this.deletePosX + this.width, this.deletePosY + this.height);
+    ctx.lineTo(this.deletePosX, this.deletePosY + this.height);
     ctx.closePath();
     ctx.stroke();
 
     ctx.beginPath();
     ctx.lineWidth = 0.05;
-    ctx.moveTo(deletePosX + 1*this.width/5, deletePosY + 1*this.height/5);
-    ctx.lineTo(deletePosX + 4*this.width/5, deletePosY + 4*this.height/5);
+    ctx.moveTo(this.deletePosX + 1*this.width/5, this.deletePosY + 1*this.height/5);
+    ctx.lineTo(this.deletePosX + 4*this.width/5, this.deletePosY + 4*this.height/5);
     ctx.closePath();
     ctx.stroke();
 
     ctx.beginPath();
     ctx.lineWidth = 0.05;
-    ctx.moveTo(deletePosX + 1*this.width/5, deletePosY + 4*this.height/5);
-    ctx.lineTo(deletePosX + 4*this.width/5, deletePosY + 1*this.height/5);
+    ctx.moveTo(this.deletePosX + 1*this.width/5, this.deletePosY + 4*this.height/5);
+    ctx.lineTo(this.deletePosX + 4*this.width/5, this.deletePosY + 1*this.height/5);
     ctx.closePath();
     ctx.stroke();
 
@@ -125,5 +129,25 @@ export default class TowerInfo extends Sprite {
     ctx.fillText(this.subtext, 0.7, 0.7);
 
     ctx.restore();
+  }
+
+
+  onClick(evt) {
+    let absX = (evt.x - this.transform.x);
+    let absY = (evt.y - this.transform.y);
+
+
+    if(absX >= this.upgradePosX && absX <= this.upgradePosX + this.width)
+    {
+      if(absY >= this.upgradePosY && absY <= this.upgradePosY + this.height)
+      {
+        console.log("Upgrade !")
+      }
+
+      if(absY >= this.deletePosY && absY <= this.deletePosY + this.height)
+      {
+        console.log("Delete !")
+      }
+    }
   }
 }

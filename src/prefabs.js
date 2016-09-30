@@ -166,7 +166,8 @@ export const GUIText = [
 
 export const TowerInfo = [
   { comp: Transform },
-  { comp: TowerInfoComp }
+  { comp: TowerInfoComp },
+  { comp: MouseInput }
 ];
 
 export const HeadQuarters = [
