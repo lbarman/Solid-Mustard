@@ -131,10 +131,12 @@ class Grid extends Component {
 
         } else {
             //otherwise, build a tower
-            pos.type = this.player.gui.getComponent(GUIComp).nextTower;
-            this.createTower(pos);
-            RPC.call(this, 'createTower', pos);
-            this.setMouseMode("create") //we remain in create
+            if (this.player.gui) {
+                pos.type = this.player.gui.getComponent(GUIComp).nextTower;
+                this.createTower(pos);
+                RPC.call(this, 'createTower', pos);
+                this.setMouseMode("create") //we remain in create
+            }
         }
     }
   }
